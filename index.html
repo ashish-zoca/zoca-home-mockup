@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Zoca Home Page — Solo + Single Center</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fraunces:ital,wght@1,100;1,300&display=swap" rel="stylesheet">
+<style>
+:root {
+  --warm-white:#FFF3E9; --zoca-black:#240010; --zoca-black-700:#664951;
+  --zoca-black-500:#917A7D; --zoca-black-100:#DECFC8; --zoca-black-50:#F4E7DE;
+  --magenta:#FF6AAB; --magenta-dark:#AD034D; --magenta-100:#FFC7D5; --magenta-50:#FFE8E4;
+  --violet:#805AFF; --violet-100:#ECDCEC; --violet-50:#F3ECFA;
+  --yellow:#FFF242; --orange:#FF872B; --orange-100:#FFE3CD; --orange-50:#FFEEDF;
+  --green:#2D8A4E; --green-light:#E8F5E9; --green-50:#F0FAF2;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',-apple-system,sans-serif;background:#1a1a2e;color:var(--zoca-black)}
+
+/* TOP BARS */
+.icp-bar{position:fixed;top:0;left:0;right:0;z-index:101;background:var(--zoca-black);display:flex;align-items:center;justify-content:center;gap:8px;padding:10px 20px;border-bottom:1px solid rgba(255,255,255,.1)}
+.icp-bar span{color:var(--warm-white);font-size:11px;font-weight:500;margin-right:12px;opacity:.5;text-transform:uppercase;letter-spacing:1px}
+.icp-btn{padding:6px 18px;border-radius:16px;border:1.5px solid var(--magenta-dark);background:transparent;color:var(--warm-white);font-family:inherit;font-size:12px;font-weight:500;cursor:pointer;transition:all .2s}
+.icp-btn.active{background:var(--magenta-dark);border-color:var(--magenta);color:#fff}
+.bundle-bar{position:fixed;top:42px;left:0;right:0;z-index:100;background:var(--zoca-black-50);display:flex;align-items:center;justify-content:center;gap:6px;padding:8px 20px;border-bottom:1px solid var(--zoca-black-100)}
+.b-btn{padding:6px 16px;border-radius:14px;border:1px solid var(--zoca-black-100);background:#fff;color:var(--zoca-black);font-family:inherit;font-size:11px;font-weight:500;cursor:pointer;transition:all .2s}
+.b-btn.active{background:var(--zoca-black);color:var(--warm-white);border-color:var(--zoca-black)}
+
+/* LAYOUT */
+.app{display:flex;margin-top:82px;min-height:calc(100vh - 82px)}
+.side{width:190px;background:var(--zoca-black);padding:16px 0;flex-shrink:0;position:fixed;top:82px;bottom:0;overflow-y:auto}
+.side-logo{padding:0 18px 20px;font-size:20px;font-weight:800;color:var(--warm-white);letter-spacing:2px}
+.side-sec{padding:0 12px;margin-bottom:16px}
+.side-sec-t{font-size:9px;font-weight:600;text-transform:uppercase;color:var(--zoca-black-500);letter-spacing:1px;padding:0 6px;margin-bottom:6px}
+.si{display:flex;align-items:center;gap:8px;padding:7px 10px;border-radius:7px;font-size:12px;color:var(--warm-white);opacity:.6;cursor:pointer;margin-bottom:1px}
+.si:hover{opacity:1;background:rgba(255,255,255,.05)}
+.si.active{opacity:1;background:rgba(255,106,171,.15);color:var(--magenta)}
+.si .dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.si.dim{opacity:.2;pointer-events:none}
+
+.main{flex:1;margin-left:190px;background:var(--warm-white);min-height:calc(100vh - 82px)}
+.topbar{display:flex;justify-content:space-between;align-items:center;padding:14px 28px;border-bottom:1px solid rgba(36,0,16,.06)}
+.topbar h2{font-size:14px;font-weight:600}
+.cmd{display:flex;align-items:center;gap:5px;background:var(--magenta-dark);color:#fff;padding:7px 14px;border-radius:7px;font-size:11px;font-weight:600;cursor:pointer}
+.cmd .beta{background:rgba(255,255,255,.2);padding:1px 5px;border-radius:3px;font-size:8px}
+
+.content{padding:20px 28px;max-width:1100px}
+.greet{font-size:22px;font-weight:700;letter-spacing:-.5px;margin-bottom:20px;text-transform:uppercase}
+
+/* CARDS */
+.c{background:#fff;border-radius:14px;padding:18px 22px;margin-bottom:14px;box-shadow:0 1px 3px rgba(36,0,16,.05)}
+.ct{font-family:'Fraunces',serif;font-style:italic;font-weight:100;font-size:13px;color:var(--magenta-dark);margin-bottom:14px}
+
+/* FUNNEL */
+.ff{display:flex;align-items:stretch;gap:0}
+.fs{flex:1;text-align:center;padding:14px 8px;border-radius:10px}
+.fs .l{font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:.4px;margin-bottom:3px;opacity:.55}
+.fs .v{font-size:28px;font-weight:700;letter-spacing:-1px;line-height:1.1}
+.fs .s{font-size:10px;color:var(--zoca-black-500);margin-top:2px}
+.fs .t{font-size:10px;font-weight:600;margin-top:3px}
+.fs .t.up{color:var(--green)}
+.fs .t.mg{color:var(--magenta-dark)}
+.fs .effort{font-size:9px;color:var(--zoca-black-500);margin-top:6px;padding-top:6px;border-top:1px dashed rgba(36,0,16,.08);font-style:italic}
+.fa{display:flex;align-items:center;justify-content:center;font-size:16px;color:var(--zoca-black-100);padding:0 3px;flex-shrink:0}
+.fs.d{background:var(--orange-50)} .fs.f{background:var(--magenta-50)} .fs.b{background:var(--violet-50)}
+.fs.gap{background:repeating-linear-gradient(45deg,transparent,transparent 5px,rgba(36,0,16,.015) 5px,rgba(36,0,16,.015) 10px);border:1.5px dashed var(--zoca-black-100)}
+.fs.gap .v{font-size:12px;font-weight:500;color:var(--zoca-black-500);line-height:1.4}
+.gap-cta{display:inline-block;margin-top:4px;font-size:10px;color:var(--magenta-dark);font-weight:600;cursor:pointer;text-decoration:underline}
+
+/* ATTENTION */
+.att{border-left:3px solid var(--orange)}
+.att-h{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.att-h h3{font-size:13px;font-weight:600}
+.att-n{background:var(--orange);color:var(--zoca-black);font-size:10px;font-weight:700;padding:2px 7px;border-radius:8px}
+.ai{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid rgba(36,0,16,.04)}
+.ai:last-child{border-bottom:none}
+.ai-d{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.ai-t{font-size:12px;flex:1} .ai-tm{font-size:10px;color:var(--zoca-black-500);flex-shrink:0}
+
+/* BREAKDOWN */
+.breakdown{background:var(--green-50);border-radius:14px;padding:18px 22px;margin-bottom:14px}
+.bd-title{font-size:13px;font-weight:600;margin-bottom:12px}
+.bd-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px}
+.bd-item{text-align:center;padding:10px;background:#fff;border-radius:10px}
+.bd-val{font-size:20px;font-weight:700}
+.bd-lab{font-size:10px;color:var(--zoca-black-500);margin-top:2px}
+
+/* AGENT CARDS */
+.ac-grid{display:grid;gap:14px;margin-bottom:14px}
+.ac{background:#fff;border-radius:14px;padding:18px 22px;box-shadow:0 1px 3px rgba(36,0,16,.05);border-top:3px solid transparent}
+.ac.disc{border-top-color:var(--orange)} .ac.fd{border-top-color:var(--magenta)} .ac.bk{border-top-color:var(--violet)}
+.ac-h{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.ac-tt{display:flex;align-items:center;gap:7px;font-size:12px;font-weight:600}
+.ac-dot{width:9px;height:9px;border-radius:50%}
+.ac-lk{font-size:10px;color:var(--magenta-dark);font-weight:500;cursor:pointer}
+.ac-split{display:grid;grid-template-columns:1fr 1fr;gap:0}
+.ac-col{padding:8px 12px}
+.ac-col:first-child{border-right:1px dashed rgba(36,0,16,.08)}
+.ac-col-title{font-size:9px;text-transform:uppercase;letter-spacing:.5px;font-weight:600;margin-bottom:8px}
+.ac-col-title.effort{color:var(--green)}
+.ac-col-title.result{color:var(--zoca-black-500)}
+.as-row{margin-bottom:6px}
+.as-l{font-size:9px;text-transform:uppercase;letter-spacing:.4px;color:var(--zoca-black-500);margin-bottom:1px}
+.as-v{font-size:17px;font-weight:700;letter-spacing:-.3px}
+.as-v .u{font-size:10px;font-weight:500;opacity:.5}
+.as-s{font-size:9px;color:var(--zoca-black-500)}
+
+/* COUNTERFACTUAL */
+.cf{background:linear-gradient(135deg,var(--magenta-50),#fff)}
+.cf-g{display:grid;grid-template-columns:1fr auto 1fr;gap:14px;align-items:start}
+.cf-lab{font-size:9px;text-transform:uppercase;letter-spacing:.5px;font-weight:600;margin-bottom:8px}
+.cf-w .cf-lab{color:var(--zoca-black-500)} .cf-r .cf-lab{color:var(--green)}
+.cf-i{display:flex;align-items:center;gap:6px;font-size:11px;padding:3px 0}
+.cf-div{width:1.5px;height:100%;background:var(--magenta-100);border-radius:1px;min-height:100px}
+.cf-hero{text-align:center;margin-bottom:10px}
+.cf-hero-v{font-size:24px;font-weight:700;color:var(--green)}
+.cf-hero-l{font-size:10px;color:var(--zoca-black-500)}
+.cf-cum{text-align:center;margin-top:12px;padding-top:10px;border-top:1px dashed var(--magenta-100);font-size:10px;color:var(--zoca-black-500)}
+.cf-cum strong{color:var(--green);font-size:13px}
+
+/* UPSELL */
+.up-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
+.up{background:#fff;border-radius:14px;padding:18px 22px;box-shadow:0 1px 3px rgba(36,0,16,.05);border:1.5px dashed var(--zoca-black-100);text-align:center}
+.up-icon{font-size:24px;margin-bottom:6px}
+.up-title{font-size:13px;font-weight:600;margin-bottom:3px}
+.up-desc{font-size:11px;color:var(--zoca-black-500);margin-bottom:10px;line-height:1.4}
+.up-cta{display:inline-block;padding:6px 16px;border-radius:16px;font-size:11px;font-weight:600;cursor:pointer}
+.up-cta.fd{background:var(--magenta-50);color:var(--magenta-dark)}
+.up-cta.bk{background:var(--violet-50);color:var(--violet)}
+
+/* GROWTH */
+.gr-bars{display:flex;gap:6px;align-items:flex-end;height:90px;padding:0 4px}
+.gr-m{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px}
+.gr-bw{display:flex;gap:0;align-items:flex-end;height:70px;width:100%;justify-content:center}
+.gr-b{width:20px;border-radius:3px 3px 0 0;transition:height .3s}
+.gr-l{font-size:8px;color:var(--zoca-black-500);text-transform:uppercase;font-weight:500}
+.gr-v{font-size:9px;font-weight:600;color:var(--zoca-black)}
+.gr-foot{text-align:center;margin-top:6px;font-size:11px;color:var(--green);font-weight:600}
+
+/* PROOF */
+.pr-h{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.pr-t{font-size:13px;font-weight:600}
+.pr-lk{font-size:10px;color:var(--magenta-dark);font-weight:500;cursor:pointer}
+.pi{display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid rgba(36,0,16,.04)}
+.pi:last-child{border-bottom:none}
+.pi-i{width:28px;height:28px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0}
+.pi-i.disc{background:var(--orange-50)} .pi-i.fd{background:var(--magenta-50)} .pi-i.bk{background:var(--violet-50)}
+.pi-t{flex:1;font-size:12px}
+.pi-tm{font-size:10px;color:var(--zoca-black-500);flex-shrink:0}
+
+/* STAFF SNAPSHOT */
+.staff-card{background:#fff;border-radius:14px;padding:18px 22px;margin-bottom:14px;box-shadow:0 1px 3px rgba(36,0,16,.05)}
+.staff-title{font-size:13px;font-weight:600;margin-bottom:12px}
+.staff-row{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:8px;padding:8px 0;border-bottom:1px solid rgba(36,0,16,.04);align-items:center}
+.staff-row:last-child{border-bottom:none}
+.staff-row.header{font-size:9px;text-transform:uppercase;letter-spacing:.4px;color:var(--zoca-black-500);font-weight:600;border-bottom:1px solid rgba(36,0,16,.08)}
+.staff-name{font-size:12px;font-weight:500;display:flex;align-items:center;gap:6px}
+.staff-avatar{width:24px;height:24px;border-radius:50%;background:var(--magenta-50);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600;color:var(--magenta-dark)}
+.staff-val{font-size:12px;font-weight:600}
+.staff-sub{font-size:9px;color:var(--zoca-black-500)}
+
+/* CAPACITY ALERT */
+.cap-alert{background:var(--yellow);border-radius:14px;padding:14px 22px;margin-bottom:14px;display:flex;align-items:center;gap:12px}
+.cap-icon{font-size:20px}
+.cap-text{font-size:12px;font-weight:500;flex:1}
+.cap-action{font-size:11px;font-weight:600;color:var(--zoca-black);cursor:pointer;text-decoration:underline}
+
+.panel{display:none} .panel.active{display:block}
+</style>
+</head>
+<body>
+
+<div class="icp-bar">
+  <span>ICP</span>
+  <button class="icp-btn active" onclick="setICP('solo')">Solo Owner</button>
+  <button class="icp-btn" onclick="setICP('center')">Single Center with Staff</button>
+</div>
+<div class="bundle-bar">
+  <button class="b-btn active" onclick="setBundle('d')">Discovery</button>
+  <button class="b-btn" onclick="setBundle('df')">Discovery + Front Desk</button>
+  <button class="b-btn" onclick="setBundle('dfb')">Discovery + Front Desk + Bookings</button>
+</div>
+
+<div class="app">
+  <div class="side">
+    <div class="side-logo">ZOCA</div>
+    <div class="side-sec">
+      <div class="si active"><span style="font-size:14px;width:18px;text-align:center">&#9751;</span> Home</div>
+      <div class="si"><span style="font-size:14px;width:18px;text-align:center">&#128197;</span> Calendar</div>
+      <div class="si" id="si-inbox"><span style="font-size:14px;width:18px;text-align:center">&#128233;</span> Inbox</div>
+      <div class="si"><span style="font-size:14px;width:18px;text-align:center">&#128221;</span> Enquiries</div>
+      <div class="si"><span style="font-size:14px;width:18px;text-align:center">&#9776;</span> Content Queue</div>
+    </div>
+    <div class="side-sec">
+      <div class="side-sec-t">Your AI Agents</div>
+      <div class="si"><span class="dot" style="background:var(--orange)"></span> Discovery</div>
+      <div class="si" id="si-fd"><span class="dot" style="background:var(--magenta)"></span> Front Desk</div>
+      <div class="si" id="si-bk"><span class="dot" style="background:var(--violet)"></span> Bookings</div>
+    </div>
+    <div class="side-sec">
+      <div class="side-sec-t">Your Business</div>
+      <div class="si"><span style="font-size:14px;width:18px;text-align:center">&#9733;</span> Services</div>
+      <div class="si"><span style="font-size:14px;width:18px;text-align:center">&#128101;</span> Clients</div>
+      <div class="si" id="si-staff"><span style="font-size:14px;width:18px;text-align:center">&#128100;</span> Staff</div>
+      <div class="si"><span style="font-size:14px;width:18px;text-align:center">&#9881;</span> Account</div>
+    </div>
+  </div>
+
+  <div class="main">
+    <div class="topbar"><h2>Home</h2><div class="cmd">&#10024; Command Center <span class="beta">BETA</span></div></div>
+    <div class="content">
+
+<!-- ================ SOLO x DISCOVERY ================ -->
+<div class="panel" id="solo-d">
+  <div class="greet">Good evening, Priya</div>
+  <div class="c"><div class="ct">Your visibility this month</div>
+    <div class="ff">
+      <div class="fs d"><div class="l">Searched for your services</div><div class="v">1,840</div><div class="s">in your neighborhood</div><div class="t up">+14%</div><div class="effort">Zoca targeting 42 keywords</div></div>
+      <div class="fa">&#10132;</div>
+      <div class="fs d"><div class="l">Found your business</div><div class="v">615</div><div class="s">Google + Website + AI</div><div class="t up">+21%</div><div class="effort">60 content pieces published</div></div>
+      <div class="fa">&#10132;</div>
+      <div class="fs d"><div class="l">Took action</div><div class="v">93</div><div class="s">called, clicked, got directions</div><div class="t up">+18%</div><div class="effort">GBP optimized weekly</div></div>
+      <div class="fa">&#10132;</div>
+      <div class="fs d"><div class="l">Enquired</div><div class="v">43</div><div class="s">forms + calls + messages</div><div class="t up">+12%</div><div class="effort">Website converting at 14%</div></div>
+      <div class="fa">&#10132;</div>
+      <div class="fs gap"><div class="l" style="opacity:.4">What happened next?</div><div class="v">43 people reached out. Did you catch them all?</div><span class="gap-cta">Add AI Front Desk &#8594;</span><br><span class="gap-cta">Add Bookings &#8594;</span></div>
+    </div>
+  </div>
+  <div class="c att"><div class="att-h"><h3>Needs your attention</h3><span class="att-n">3</span></div>
+    <div class="ai"><span class="ai-d" style="background:var(--orange)"></span><span class="ai-t">New 5-star review from Sarah M. needs a reply</span><span class="ai-tm">2 hrs ago</span></div>
+    <div class="ai"><span class="ai-d" style="background:var(--violet)"></span><span class="ai-t">4 blog posts ready for your review</span><span class="ai-tm">Today</span></div>
+    <div class="ai"><span class="ai-d" style="background:var(--orange)"></span><span class="ai-t">Google profile photo needs updating</span><span class="ai-tm">Pending</span></div>
+  </div>
+  <div class="ac disc"><div class="ac-h"><div class="ac-tt"><span class="ac-dot" style="background:var(--orange)"></span> Discovery Agent</div><span class="ac-lk">View details &#8594;</span></div>
+    <div class="ac-split">
+      <div class="ac-col"><div class="ac-col-title effort">What Zoca did</div><div class="as-row"><div class="as-l">Content published</div><div class="as-v">60</div><div class="as-s">blogs + GBP posts</div></div><div class="as-row"><div class="as-l">Keywords targeted</div><div class="as-v">42</div><div class="as-s">18 improving this month</div></div><div class="as-row"><div class="as-l">Reviews responded</div><div class="as-v">7</div><div class="as-s">in your brand voice</div></div></div>
+      <div class="ac-col"><div class="ac-col-title result">What resulted</div><div class="as-row"><div class="as-l">Direction requests</div><div class="as-v">21</div><div class="as-s">from Google Maps</div></div><div class="as-row"><div class="as-l">Call clicks</div><div class="as-v">23</div><div class="as-s">from your GBP</div></div><div class="as-row"><div class="as-l">Website clicks</div><div class="as-v">29</div><div class="as-s">from Google search</div></div></div>
+    </div>
+  </div>
+  <div class="c"><div class="pr-h"><div><div class="pr-t">New enquiries per month</div><div style="font-size:10px;color:var(--zoca-black-500)">People who tried to reach your business</div></div></div>
+    <div class="gr-bars">
+      <div class="gr-m"><div class="gr-v">18</div><div class="gr-bw"><div class="gr-b" style="height:25px;background:var(--orange)"></div></div><div class="gr-l">Jan</div></div>
+      <div class="gr-m"><div class="gr-v">22</div><div class="gr-bw"><div class="gr-b" style="height:31px;background:var(--orange)"></div></div><div class="gr-l">Feb</div></div>
+      <div class="gr-m"><div class="gr-v">27</div><div class="gr-bw"><div class="gr-b" style="height:38px;background:var(--orange)"></div></div><div class="gr-l">Mar</div></div>
+      <div class="gr-m"><div class="gr-v">31</div><div class="gr-bw"><div class="gr-b" style="height:44px;background:var(--orange)"></div></div><div class="gr-l">Apr</div></div>
+      <div class="gr-m"><div class="gr-v">36</div><div class="gr-bw"><div class="gr-b" style="height:51px;background:var(--orange)"></div></div><div class="gr-l">May</div></div>
+      <div class="gr-m"><div class="gr-v" style="color:var(--green);font-weight:700">43</div><div class="gr-bw"><div class="gr-b" style="height:61px;background:var(--orange)"></div></div><div class="gr-l" style="font-weight:600">Jun</div></div>
+    </div>
+    <div class="gr-foot">+139% since you started with Zoca</div>
+  </div>
+  <div class="up-grid">
+    <div class="up"><div class="up-icon">&#128222;</div><div class="up-title">AI Front Desk</div><div class="up-desc">43 people enquired. Did you catch every call? Your AI front desk answers 24/7.</div><a class="up-cta fd">Learn more &#8594;</a></div>
+    <div class="up"><div class="up-icon">&#128176;</div><div class="up-title">Bookings & Payments</div><div class="up-desc">Let clients book and pay directly. Recover drop-offs automatically.</div><a class="up-cta bk">Learn more &#8594;</a></div>
+  </div>
+  <div class="c"><div class="pr-h"><div class="pr-t">What Discovery did this week</div><span class="pr-lk">View all &#8594;</span></div>
+    <div class="pi"><div class="pi-i disc">&#128221;</div><div class="pi-t">Published 3 blog posts targeting "hydrafacial Bengaluru"</div><div class="pi-tm">Today</div></div>
+    <div class="pi"><div class="pi-i disc">&#128205;</div><div class="pi-t">Posted 4 updates to your Google Business Profile</div><div class="pi-tm">Yesterday</div></div>
+    <div class="pi"><div class="pi-i disc">&#11088;</div><div class="pi-t">Responded to 2 Google reviews in your brand voice</div><div class="pi-tm">2 days ago</div></div>
+    <div class="pi"><div class="pi-i disc">&#128200;</div><div class="pi-t">"microneedling near me" moved from page 3 to page 2</div><div class="pi-tm">This week</div></div>
+  </div>
+</div>
+
+<!-- ================ SOLO x DISCOVERY + FRONT DESK ================ -->
+<div class="panel" id="solo-df">
+  <div class="greet">Good evening, Priya</div>
+  <div class="c"><div class="ct">Your business this month</div>
+    <div class="ff">
+      <div class="fs d"><div class="l">Found you</div><div class="v">615</div><div class="s">Google + Web + AI</div><div class="t up">+21%</div><div class="effort">60 pieces published</div></div>
+      <div class="fa">&#10132;</div>
+      <div class="fs f"><div class="l">Contacted you</div><div class="v">59</div><div class="s">calls + messages</div><div class="t up">+15%</div><div class="effort">100% answered</div></div>
+      <div class="fa">&#10132;</div>
+      <div class="fs f"><div class="l">Ready to book</div><div class="v">43</div><div class="s">qualified enquiries</div><div class="t up">+12%</div><div class="effort">Engaged in &lt;60s</div></div>
+      <div class="fa">&#10132;</div>
+      <div class="fs gap"><div class="l" style="opacity:.4">Booking + Payment</div><div class="v">You handle this step. Want it automated?</div><span class="gap-cta">Add Bookings &#8594;</span></div>
+    </div>
+  </div>
+  <div class="c att"><div class="att-h"><h3>Needs your attention</h3><span class="att-n">3</span></div>
+    <div class="ai"><span class="ai-d" style="background:var(--magenta)"></span><span class="ai-t"><strong>Alex Morgan</strong> wants a callback about a facial</span><span class="ai-tm">7:00 AM</span></div>
+    <div class="ai"><span class="ai-d" style="background:var(--orange)"></span><span class="ai-t">New 5-star review needs a reply</span><span class="ai-tm">2 hrs ago</span></div>
+    <div class="ai"><span class="ai-d" style="background:var(--violet)"></span><span class="ai-t">6 blog posts ready for review</span><span class="ai-tm">Today</span></div>
+  </div>
+  <div class="breakdown"><div class="bd-title">What happened with all 59 contacts</div>
+    <div class="bd-grid">
+      <div class="bd-item"><div class="bd-val" style="color:var(--green)">43</div><div class="bd-lab">Qualified enquiries</div></div>
+      <div class="bd-item"><div class="bd-val">14</div><div class="bd-lab">Spam filtered</div></div>
+      <div class="bd-item"><div class="bd-val">8</div><div class="bd-lab">FAQs answered</div></div>
+      <div class="bd-item"><div class="bd-val">3</div><div class="bd-lab">Callbacks created</div></div>
+      <div class="bd-item"><div class="bd-val">2</div><div class="bd-lab">Complex, escalated</div></div>
+    </div>
+  </div>
+  <div class="c cf"><div class="ct">If you had no AI this month</div>
+    <div class="cf-g">
+      <div class="cf-w"><div class="cf-lab">Without your AI front desk</div>
+        <div class="cf-i"><span>&#128244;</span> 12 calls to voicemail</div>
+        <div class="cf-i"><span>&#127769;</span> 8 after-hours contacts lost</div>
+        <div class="cf-i"><span>&#128164;</span> 5 web enquiries sat cold</div>
+        <div class="cf-i"><span>&#128222;</span> 14 spam interruptions</div>
+      </div>
+      <div class="cf-div"></div>
+      <div class="cf-r"><div class="cf-lab">Instead, you gained</div>
+        <div class="cf-hero"><div class="cf-hero-v">8.2 hrs</div><div class="cf-hero-l">phone time saved</div></div>
+        <div class="cf-i"><span>&#9989;</span> Every call answered 24/7</div>
+        <div class="cf-i"><span>&#9989;</span> Every enquiry engaged in &lt;60s</div>
+        <div class="cf-cum">Since you started: <strong>42 hrs</strong> saved total</div>
+      </div>
+    </div>
+  </div>
+  <div class="ac-grid" style="grid-template-columns:1fr 1fr">
+    <div class="ac disc"><div class="ac-h"><div class="ac-tt"><span class="ac-dot" style="background:var(--orange)"></span> Discovery</div><span class="ac-lk">Details &#8594;</span></div>
+      <div class="ac-split"><div class="ac-col"><div class="ac-col-title effort">Zoca did</div><div class="as-row"><div class="as-l">Content</div><div class="as-v">60</div></div><div class="as-row"><div class="as-l">Keywords tracked</div><div class="as-v">42</div></div></div><div class="ac-col"><div class="ac-col-title result">Resulted</div><div class="as-row"><div class="as-l">Found you</div><div class="as-v">615</div></div><div class="as-row"><div class="as-l">Enquiries</div><div class="as-v">43</div></div></div></div>
+    </div>
+    <div class="ac fd"><div class="ac-h"><div class="ac-tt"><span class="ac-dot" style="background:var(--magenta)"></span> Front Desk</div><span class="ac-lk">Details &#8594;</span></div>
+      <div class="ac-split"><div class="ac-col"><div class="ac-col-title effort">Zoca did</div><div class="as-row"><div class="as-l">Calls answered</div><div class="as-v">59</div></div><div class="as-row"><div class="as-l">Spam filtered</div><div class="as-v">14</div></div></div><div class="ac-col"><div class="ac-col-title result">Resulted</div><div class="as-row"><div class="as-l">After-hours saved</div><div class="as-v">12</div></div><div class="as-row"><div class="as-l">Time saved</div><div class="as-v">8.2<span class="u">h</span></div></div></div></div>
+    </div>
+  </div>
+  <div class="c"><div class="pr-h"><div class="pr-t">What your agents did this week</div><span class="pr-lk">View all &#8594;</span></div>
+    <div class="pi"><div class="pi-i fd">&#128222;</div><div class="pi-t">Answered 3 calls after 9pm, captured booking requests</div><div class="pi-tm">Last night</div></div>
+    <div class="pi"><div class="pi-i disc">&#128221;</div><div class="pi-t">Published 3 blogs and 4 GBP posts</div><div class="pi-tm">Today</div></div>
+    <div class="pi"><div class="pi-i fd">&#128683;</div><div class="pi-t">Filtered 6 spam/vendor calls</div><div class="pi-tm">This week</div></div>
+  </div>
+</div>
+
+<!-- ================ SOLO x FULL STACK ================ -->
+<div class="panel" id="solo-dfb">
+  <div class="greet">Good evening, Priya</div>
+  <div class="c"><div class="ct">Your business this month</div>
+    <div class="ff">
+      <div class="fs d"><div class="l">Found you</div><div class="v">615</div><div class="s">Google + Web + AI</div><div class="t up">+21%</div><div class="effort">60 pieces published</div></div>
+      <div class="fa">&#10132;</div>
+      <div class="fs f"><div class="l">Contacted you</div><div class="v">59</div><div class="s">calls + messages</div><div class="t mg">0 missed</div><div class="effort">100% answered</div></div>
+      <div class="fa">&#10132;</div>
+      <div class="fs b"><div class="l">Booked</div><div class="v">18</div><div class="s">appointments</div><div class="t up">+22%</div><div class="effort">3 recovered from drop-off</div></div>
+      <div class="fa">&#10132;</div>
+      <div class="fs b"><div class="l">Revenue</div><div class="v" style="font-size:24px">$4,280</div><div class="s">collected via Zoca</div><div class="t up">+31%</div><div class="effort">2.7% processing fee</div></div>
+    </div>
+  </div>
+  <div class="c att"><div class="att-h"><h3>Needs your attention</h3><span class="att-n">3</span></div>
+    <div class="ai"><span class="ai-d" style="background:var(--magenta)"></span><span class="ai-t"><strong>Alex Morgan</strong> wants a callback about a facial</span><span class="ai-tm">7:00 AM</span></div>
+    <div class="ai"><span class="ai-d" style="background:var(--violet)"></span><span class="ai-t"><strong>2 clients</strong> started booking but dropped off. Recovery sent.</span><span class="ai-tm">Last night</span></div>
+    <div class="ai"><span class="ai-d" style="background:var(--orange)"></span><span class="ai-t">New 5-star review from Sarah M. needs a reply</span><span class="ai-tm">2 hrs ago</span></div>
+  </div>
+  <div class="breakdown"><div class="bd-title">What happened with all 59 contacts</div>
+    <div class="bd-grid">
+      <div class="bd-item"><div class="bd-val" style="color:var(--green)">18</div><div class="bd-lab">Booked</div></div>
+      <div class="bd-item"><div class="bd-val">25</div><div class="bd-lab">FAQ / info calls</div></div>
+      <div class="bd-item"><div class="bd-val">14</div><div class="bd-lab">Spam filtered</div></div>
+      <div class="bd-item"><div class="bd-val">3</div><div class="bd-lab">Callbacks created</div></div>
+      <div class="bd-item"><div class="bd-val">2</div><div class="bd-lab">Escalated</div></div>
+    </div>
+  </div>
+  <div class="c cf"><div class="ct">If you had no AI this month</div>
+    <div class="cf-g">
+      <div class="cf-w"><div class="cf-lab">Without your AI team</div>
+        <div class="cf-i"><span>&#128244;</span> 12 calls to voicemail</div>
+        <div class="cf-i"><span>&#127769;</span> 8 after-hours contacts lost</div>
+        <div class="cf-i"><span>&#128722;</span> 3 booking drop-offs never recovered</div>
+        <div class="cf-i"><span>&#128222;</span> 14 spam interruptions</div>
+      </div>
+      <div class="cf-div"></div>
+      <div class="cf-r"><div class="cf-lab">Instead, you gained</div>
+        <div class="cf-hero"><div class="cf-hero-v">$1,240</div><div class="cf-hero-l">revenue you would have lost</div></div>
+        <div class="cf-i"><span>&#9989;</span> 3 clients recovered from drop-off</div>
+        <div class="cf-i"><span>&#9989;</span> 8 after-hours bookings captured</div>
+        <div class="cf-cum">Since you started: <strong>$8,400</strong> saved total</div>
+      </div>
+    </div>
+  </div>
+  <div class="ac-grid" style="grid-template-columns:1fr 1fr 1fr">
+    <div class="ac disc"><div class="ac-h"><div class="ac-tt"><span class="ac-dot" style="background:var(--orange)"></span> Discovery</div><span class="ac-lk">&#8594;</span></div>
+      <div class="ac-split"><div class="ac-col"><div class="ac-col-title effort">Zoca did</div><div class="as-row"><div class="as-l">Content</div><div class="as-v">60</div></div><div class="as-row"><div class="as-l">Keywords</div><div class="as-v">42</div></div></div><div class="ac-col"><div class="ac-col-title result">Resulted</div><div class="as-row"><div class="as-l">Found you</div><div class="as-v">615</div></div><div class="as-row"><div class="as-l">Enquiries</div><div class="as-v">43</div></div></div></div>
+    </div>
+    <div class="ac fd"><div class="ac-h"><div class="ac-tt"><span class="ac-dot" style="background:var(--magenta)"></span> Front Desk</div><span class="ac-lk">&#8594;</span></div>
+      <div class="ac-split"><div class="ac-col"><div class="ac-col-title effort">Zoca did</div><div class="as-row"><div class="as-l">Answered</div><div class="as-v">59</div></div><div class="as-row"><div class="as-l">Spam blocked</div><div class="as-v">14</div></div></div><div class="ac-col"><div class="ac-col-title result">Resulted</div><div class="as-row"><div class="as-l">After-hours</div><div class="as-v">12</div></div><div class="as-row"><div class="as-l">Time saved</div><div class="as-v">8.2<span class="u">h</span></div></div></div></div>
+    </div>
+    <div class="ac bk"><div class="ac-h"><div class="ac-tt"><span class="ac-dot" style="background:var(--violet)"></span> Bookings</div><span class="ac-lk">&#8594;</span></div>
+      <div class="ac-split"><div class="ac-col"><div class="ac-col-title effort">Zoca did</div><div class="as-row"><div class="as-l">Recovered</div><div class="as-v">3</div></div><div class="as-row"><div class="as-l">Processed</div><div class="as-v">18</div></div></div><div class="ac-col"><div class="ac-col-title result">Resulted</div><div class="as-row"><div class="as-l">Revenue</div><div class="as-v">$4.2<span class="u">k</span></div></div><div class="as-row"><div class="as-l">Saved rev</div><div class="as-v">$1.2<span class="u">k</span></div></div></div></div>
+    </div>
+  </div>
+  <div class="c"><div class="pr-h"><div class="pr-t">What your agents did this week</div><span class="pr-lk">View all &#8594;</span></div>
+    <div class="pi"><div class="pi-i bk">&#128722;</div><div class="pi-t">Recovered 2 clients who dropped off booking last night</div><div class="pi-tm">Today</div></div>
+    <div class="pi"><div class="pi-i fd">&#128222;</div><div class="pi-t">Answered 3 after-hours calls, booked 2 for Monday</div><div class="pi-tm">Last night</div></div>
+    <div class="pi"><div class="pi-i disc">&#128221;</div><div class="pi-t">Published 3 blogs and 4 GBP posts</div><div class="pi-tm">Today</div></div>
+    <div class="pi"><div class="pi-i bk">&#128176;</div><div class="pi-t">Collected $840 in deposits from 4 bookings</div><div class="pi-tm">This week</div></div>
+  </div>
+</div>
+
+<!-- ================ CENTER x DISCOVERY ================ -->
+<div class="panel" id="center-d">
+  <div class="greet">Good evening, Priya</div>
+  <div class="c"><div class="ct">Your visibility this month</div>
+    <div class="ff">
+      <div class="fs d"><div class="l">Searched for your services</div><div class="v">4,200</div><div class="s">in your neighborhood</div><div class="t up">+11%</div><div class="effort">Zoca targeting 86 keywords</div></div>
+      <div class="fa">&#10132;</div>
+      <div class="fs d"><div class="l">Found your business</div><div class="v">1,480</div><div class="s">Google + Website + AI</div><div class="t up">+18%</div><div class="effort">120 content pieces published</div></div>
+      <div class="fa">&#10132;</div>
+      <div class="fs d"><div class="l">Took action</div><div class="v">310</div><div class="s">called, clicked, got directions</div><div class="t up">+15%</div><div class="effort">GBP optimized weekly</div></div>
+      <div class="fa">&#10132;</div>
+      <div class="fs d"><div class="l">Enquired</div><div class="v">128</div><div class="s">forms + calls + messages</div><div class="t up">+9%</div><div class="effort">Website converting at 11%</div></div>
+      <div class="fa">&#10132;</div>
+      <div class="fs gap"><div class="l" style="opacity:.4">What happened next?</div><div class="v">128 enquiries. Is your front desk catching them all during peak hours?</div><span class="gap-cta">Add AI Front Desk &#8594;</span><br><span class="gap-cta">Add Bookings &#8594;</span></div>
+    </div>
+  </div>
+  <div class="cap-alert"><div class="cap-icon">&#128161;</div><div class="cap-text"><strong>Thursday is only 45% booked</strong> across your 4 stylists. 11 open slots. Consider promoting Thursday availability.</div><div class="cap-action">View calendar &#8594;</div></div>
+  <div class="c att"><div class="att-h"><h3>Needs your attention</h3><span class="att-n">4</span></div>
+    <div class="ai"><span class="ai-d" style="background:var(--orange)"></span><span class="ai-t">New 5-star review mentioning <strong>Maria</strong> by name</span><span class="ai-tm">2 hrs ago</span></div>
+    <div class="ai"><span class="ai-d" style="background:var(--violet)"></span><span class="ai-t">6 blog posts ready for your review</span><span class="ai-tm">Today</span></div>
+    <div class="ai"><span class="ai-d" style="background:var(--orange)"></span><span class="ai-t">2 competitors posted new Google offers this week</span><span class="ai-tm">This week</span></div>
+    <div class="ai"><span class="ai-d" style="background:var(--orange)"></span><span class="ai-t">Google profile missing 3 service categories</span><span class="ai-tm">Pending</span></div>
+  </div>
+  <div class="ac disc"><div class="ac-h"><div class="ac-tt"><span class="ac-dot" style="background:var(--orange)"></span> Discovery Agent</div><span class="ac-lk">View details &#8594;</span></div>
+    <div class="ac-split">
+      <div class="ac-col"><div class="ac-col-title effort">What Zoca did</div><div class="as-row"><div class="as-l">Content published</div><div class="as-v">120</div><div class="as-s">blogs + GBP posts</div></div><div class="as-row"><div class="as-l">Keywords targeted</div><div class="as-v">86</div><div class="as-s">34 improving</div></div><div class="as-row"><div class="as-l">Reviews responded</div><div class="as-v">12</div><div class="as-s">in your brand voice</div></div></div>
+      <div class="ac-col"><div class="ac-col-title result">What resulted</div><div class="as-row"><div class="as-l">Direction requests</div><div class="as-v">89</div><div class="as-s">from Google Maps</div></div><div class="as-row"><div class="as-l">Call clicks</div><div class="as-v">64</div><div class="as-s">from your GBP</div></div><div class="as-row"><div class="as-l">Website clicks</div><div class="as-v">78</div><div class="as-s">from Google search</div></div></div>
+    </div>
+  </div>
+  <div class="c"><div class="pr-h"><div><div class="pr-t">New enquiries per month</div><div style="font-size:10px;color:var(--zoca-black-500)">People who tried to reach your business</div></div></div>
+    <div class="gr-bars">
+      <div class="gr-m"><div class="gr-v">72</div><div class="gr-bw"><div class="gr-b" style="height:30px;background:var(--orange)"></div></div><div class="gr-l">Jan</div></div>
+      <div class="gr-m"><div class="gr-v">85</div><div class="gr-bw"><div class="gr-b" style="height:36px;background:var(--orange)"></div></div><div class="gr-l">Feb</div></div>
+      <div class="gr-m"><div class="gr-v">94</div><div class="gr-bw"><div class="gr-b" style="height:40px;background:var(--orange)"></div></div><div class="gr-l">Mar</div></div>
+      <div class="gr-m"><div class="gr-v">108</div><div class="gr-bw"><div class="gr-b" style="height:46px;background:var(--orange)"></div></div><div class="gr-l">Apr</div></div>
+      <div class="gr-m"><div class="gr-v">118</div><div class="gr-bw"><div class="gr-b" style="height:50px;background:var(--orange)"></div></div><div class="gr-l">May</div></div>
+      <div class="gr-m"><div class="gr-v" style="color:var(--green);font-weight:700">128</div><div class="gr-bw"><div class="gr-b" style="height:55px;background:var(--orange)"></div></div><div class="gr-l" style="font-weight:600">Jun</div></div>
+    </div>
+    <div class="gr-foot">+78% since you started with Zoca</div>
+  </div>
+  <div class="up-grid">
+    <div class="up"><div class="up-icon">&#128222;</div><div class="up-title">AI Front Desk</div><div class="up-desc">128 enquiries this month. During peak hours, your front desk can't catch them all. AI handles the overflow 24/7.</div><a class="up-cta fd">Learn more &#8594;</a></div>
+    <div class="up"><div class="up-icon">&#128176;</div><div class="up-title">Bookings & Payments</div><div class="up-desc">Let clients book and pay online. Fill your open Thursday slots automatically.</div><a class="up-cta bk">Learn more &#8594;</a></div>
+  </div>
+</div>
+
+<!-- ================ CENTER x DISCOVERY + FRONT DESK ================ -->
+<div class="panel" id="center-df">
+  <div class="greet">Good evening, Priya</div>
+  <div class="c"><div class="ct">Your business this month</div>
+    <div class="ff">
+      <div class="fs d"><div class="l">Found you</div><div class="v">1,480</div><div class="s">Google + Web + AI</div><div class="t up">+18%</div><div class="effort">120 pieces published</div></div>
+      <div class="fa">&#10132;</div>
+      <div class="fs f"><div class="l">Contacted you</div><div class="v">186</div><div class="s">calls + messages</div><div class="t up">+12%</div><div class="effort">100% answered</div></div>
+      <div class="fa">&#10132;</div>
+      <div class="fs f"><div class="l">Ready to book</div><div class="v">128</div><div class="s">qualified enquiries</div><div class="t up">+9%</div><div class="effort">Engaged in &lt;60s</div></div>
+      <div class="fa">&#10132;</div>
+      <div class="fs gap"><div class="l" style="opacity:.4">Booking + Payment</div><div class="v">Your team handles bookings manually. Want to automate and recover drop-offs?</div><span class="gap-cta">Add Bookings &#8594;</span></div>
+    </div>
+  </div>
+  <div class="cap-alert"><div class="cap-icon">&#128161;</div><div class="cap-text"><strong>Thursday has 11 open slots.</strong> Your AI front desk received 8 Thursday enquiries this week. Booking automation could fill those.</div><div class="cap-action">View calendar &#8594;</div></div>
+  <div class="c att"><div class="att-h"><h3>Needs your attention</h3><span class="att-n">4</span></div>
+    <div class="ai"><span class="ai-d" style="background:var(--magenta)"></span><span class="ai-t"><strong>3 callbacks pending</strong> from last night's after-hours calls</span><span class="ai-tm">This morning</span></div>
+    <div class="ai"><span class="ai-d" style="background:var(--magenta)"></span><span class="ai-t">Maria has a cancellation at 3pm today — no rebooking yet</span><span class="ai-tm">1 hr ago</span></div>
+    <div class="ai"><span class="ai-d" style="background:var(--orange)"></span><span class="ai-t">New review mentioning <strong>Arun</strong> by name (4 stars)</span><span class="ai-tm">Yesterday</span></div>
+    <div class="ai"><span class="ai-d" style="background:var(--violet)"></span><span class="ai-t">8 blog posts ready for review</span><span class="ai-tm">Today</span></div>
+  </div>
+  <div class="breakdown"><div class="bd-title">What happened with all 186 contacts</div>
+    <div class="bd-grid">
+      <div class="bd-item"><div class="bd-val" style="color:var(--green)">128</div><div class="bd-lab">Qualified enquiries</div></div>
+      <div class="bd-item"><div class="bd-val">32</div><div class="bd-lab">Spam filtered</div></div>
+      <div class="bd-item"><div class="bd-val">18</div><div class="bd-lab">FAQs answered</div></div>
+      <div class="bd-item"><div class="bd-val">14</div><div class="bd-lab">Overflow handled</div></div>
+      <div class="bd-item"><div class="bd-val">4</div><div class="bd-lab">Complex, escalated</div></div>
+    </div>
+  </div>
+  <div class="c cf"><div class="ct">If you had no AI this month</div>
+    <div class="cf-g">
+      <div class="cf-w"><div class="cf-lab">Without your AI front desk</div>
+        <div class="cf-i"><span>&#128244;</span> 14 overflow calls missed during peak</div>
+        <div class="cf-i"><span>&#127769;</span> 22 after-hours contacts lost</div>
+        <div class="cf-i"><span>&#128164;</span> 8 web enquiries sat cold overnight</div>
+        <div class="cf-i"><span>&#128222;</span> 32 spam calls interrupting your team</div>
+      </div>
+      <div class="cf-div"></div>
+      <div class="cf-r"><div class="cf-lab">Instead, you gained</div>
+        <div class="cf-hero"><div class="cf-hero-v">18.5 hrs</div><div class="cf-hero-l">staff time saved this month</div></div>
+        <div class="cf-i"><span>&#9989;</span> Every overflow call caught</div>
+        <div class="cf-i"><span>&#9989;</span> 22 after-hours enquiries captured</div>
+        <div class="cf-cum">Since you started: <strong>94 hrs</strong> saved total</div>
+      </div>
+    </div>
+  </div>
+  <div class="ac-grid" style="grid-template-columns:1fr 1fr">
+    <div class="ac disc"><div class="ac-h"><div class="ac-tt"><span class="ac-dot" style="background:var(--orange)"></span> Discovery</div><span class="ac-lk">Details &#8594;</span></div>
+      <div class="ac-split"><div class="ac-col"><div class="ac-col-title effort">Zoca did</div><div class="as-row"><div class="as-l">Content</div><div class="as-v">120</div></div><div class="as-row"><div class="as-l">Keywords</div><div class="as-v">86</div></div></div><div class="ac-col"><div class="ac-col-title result">Resulted</div><div class="as-row"><div class="as-l">Found you</div><div class="as-v">1,480</div></div><div class="as-row"><div class="as-l">Enquiries</div><div class="as-v">128</div></div></div></div>
+    </div>
+    <div class="ac fd"><div class="ac-h"><div class="ac-tt"><span class="ac-dot" style="background:var(--magenta)"></span> Front Desk</div><span class="ac-lk">Details &#8594;</span></div>
+      <div class="ac-split"><div class="ac-col"><div class="ac-col-title effort">Zoca did</div><div class="as-row"><div class="as-l">Calls answered</div><div class="as-v">186</div></div><div class="as-row"><div class="as-l">Spam filtered</div><div class="as-v">32</div></div></div><div class="ac-col"><div class="ac-col-title result">Resulted</div><div class="as-row"><div class="as-l">Overflow caught</div><div class="as-v">14</div></div><div class="as-row"><div class="as-l">Staff time saved</div><div class="as-v">18.5<span class="u">h</span></div></div></div></div>
+    </div>
+  </div>
+  <div class="staff-card"><div class="staff-title">Today's schedule at a glance</div>
+    <div class="staff-row header"><div>Stylist</div><div>Today</div><div>Next open slot</div><div>This week</div></div>
+    <div class="staff-row"><div class="staff-name"><div class="staff-avatar">M</div>Maria</div><div class="staff-val">5 clients<div class="staff-sub">1 cancellation</div></div><div class="staff-val">3:00 PM<div class="staff-sub">today</div></div><div class="staff-val">22 booked<div class="staff-sub">of 30 slots</div></div></div>
+    <div class="staff-row"><div class="staff-name"><div class="staff-avatar">P</div>Priya</div><div class="staff-val">6 clients</div><div class="staff-val">Tomorrow<div class="staff-sub">10:00 AM</div></div><div class="staff-val">26 booked<div class="staff-sub">of 30 slots</div></div></div>
+    <div class="staff-row"><div class="staff-name"><div class="staff-avatar">A</div>Arun</div><div class="staff-val">3 clients</div><div class="staff-val">2:00 PM<div class="staff-sub">today</div></div><div class="staff-val">16 booked<div class="staff-sub">of 30 slots</div></div></div>
+    <div class="staff-row"><div class="staff-name"><div class="staff-avatar">R</div>Riya</div><div class="staff-val">4 clients</div><div class="staff-val">4:30 PM<div class="staff-sub">today</div></div><div class="staff-val">20 booked<div class="staff-sub">of 30 slots</div></div></div>
+  </div>
+  <div class="c"><div class="pr-h"><div class="pr-t">What your agents did this week</div><span class="pr-lk">View all &#8594;</span></div>
+    <div class="pi"><div class="pi-i fd">&#128222;</div><div class="pi-t">Handled 14 overflow calls during peak hours your front desk couldn't take</div><div class="pi-tm">This week</div></div>
+    <div class="pi"><div class="pi-i fd">&#127769;</div><div class="pi-t">Answered 22 after-hours calls, captured 18 booking requests</div><div class="pi-tm">This week</div></div>
+    <div class="pi"><div class="pi-i disc">&#128221;</div><div class="pi-t">Published 8 blogs and 6 GBP posts</div><div class="pi-tm">This week</div></div>
+    <div class="pi"><div class="pi-i disc">&#128200;</div><div class="pi-t">3 new keywords entered page 1 for your neighborhood</div><div class="pi-tm">This week</div></div>
+  </div>
+</div>
+
+<!-- ================ CENTER x FULL STACK ================ -->
+<div class="panel" id="center-dfb">
+  <div class="greet">Good evening, Priya</div>
+  <div class="c"><div class="ct">Your business this month</div>
+    <div class="ff">
+      <div class="fs d"><div class="l">Found you</div><div class="v">1,480</div><div class="s">Google + Web + AI</div><div class="t up">+18%</div><div class="effort">120 pieces published</div></div>
+      <div class="fa">&#10132;</div>
+      <div class="fs f"><div class="l">Contacted you</div><div class="v">186</div><div class="s">calls + messages</div><div class="t mg">0 missed</div><div class="effort">100% coverage</div></div>
+      <div class="fa">&#10132;</div>
+      <div class="fs b"><div class="l">Booked</div><div class="v">84</div><div class="s">appointments</div><div class="t up">+16%</div><div class="effort">6 recovered from drop-off</div></div>
+      <div class="fa">&#10132;</div>
+      <div class="fs b"><div class="l">Revenue</div><div class="v" style="font-size:24px">$18,400</div><div class="s">collected via Zoca</div><div class="t up">+24%</div></div>
+    </div>
+  </div>
+  <div class="c" style="background:var(--green-50);border:1px solid rgba(45,138,78,.15)">
+    <div style="display:flex;justify-content:space-between;align-items:center">
+      <div>
+        <div style="font-size:13px;font-weight:600;margin-bottom:4px">Zoca filled 84 of your 480 available slots this month</div>
+        <div style="font-size:11px;color:var(--zoca-black-500)">That's 18% of your total bookings coming through Zoca. Your overall fill rate is 72%.</div>
+      </div>
+      <div style="text-align:center"><div style="font-size:28px;font-weight:700;color:var(--green)">18%</div><div style="font-size:10px;color:var(--zoca-black-500)">of bookings via Zoca</div></div>
+    </div>
+  </div>
+  <div class="cap-alert"><div class="cap-icon">&#128161;</div><div class="cap-text"><strong>Thursday has 11 open slots.</strong> Zoca recovered 2 Thursday drop-offs last week. Consider a Thursday promo to fill remaining.</div><div class="cap-action">View calendar &#8594;</div></div>
+  <div class="c att"><div class="att-h"><h3>Needs your attention</h3><span class="att-n">4</span></div>
+    <div class="ai"><span class="ai-d" style="background:var(--magenta)"></span><span class="ai-t"><strong>3 callbacks pending</strong> from after-hours calls</span><span class="ai-tm">This morning</span></div>
+    <div class="ai"><span class="ai-d" style="background:var(--violet)"></span><span class="ai-t"><strong>4 clients</strong> dropped off booking. 3 recovered, 1 needs follow-up.</span><span class="ai-tm">Last night</span></div>
+    <div class="ai"><span class="ai-d" style="background:var(--magenta)"></span><span class="ai-t">Maria has a 3pm cancellation — no rebooking yet</span><span class="ai-tm">1 hr ago</span></div>
+    <div class="ai"><span class="ai-d" style="background:var(--orange)"></span><span class="ai-t">New review mentioning <strong>Arun</strong> (4 stars) needs reply</span><span class="ai-tm">Yesterday</span></div>
+  </div>
+  <div class="breakdown"><div class="bd-title">What happened with all 186 contacts</div>
+    <div class="bd-grid">
+      <div class="bd-item"><div class="bd-val" style="color:var(--green)">84</div><div class="bd-lab">Booked</div></div>
+      <div class="bd-item"><div class="bd-val">44</div><div class="bd-lab">FAQ / info calls</div></div>
+      <div class="bd-item"><div class="bd-val">32</div><div class="bd-lab">Spam filtered</div></div>
+      <div class="bd-item"><div class="bd-val">14</div><div class="bd-lab">Overflow caught</div></div>
+      <div class="bd-item"><div class="bd-val">6</div><div class="bd-lab">Drop-offs recovered</div></div>
+      <div class="bd-item"><div class="bd-val">4</div><div class="bd-lab">Escalated</div></div>
+    </div>
+  </div>
+  <div class="c cf"><div class="ct">If you had no AI this month</div>
+    <div class="cf-g">
+      <div class="cf-w"><div class="cf-lab">Without your AI team</div>
+        <div class="cf-i"><span>&#128244;</span> 14 peak-hour overflow calls missed</div>
+        <div class="cf-i"><span>&#127769;</span> 22 after-hours contacts lost</div>
+        <div class="cf-i"><span>&#128722;</span> 6 booking drop-offs never recovered</div>
+        <div class="cf-i"><span>&#128222;</span> 32 spam calls interrupting staff</div>
+      </div>
+      <div class="cf-div"></div>
+      <div class="cf-r"><div class="cf-lab">Instead, you gained</div>
+        <div class="cf-hero"><div class="cf-hero-v">$4,200</div><div class="cf-hero-l">revenue you would have lost</div></div>
+        <div class="cf-i"><span>&#9989;</span> 6 clients recovered from drop-off</div>
+        <div class="cf-i"><span>&#9989;</span> 22 after-hours bookings captured</div>
+        <div class="cf-i"><span>&#9989;</span> 18.5 hours of staff time saved</div>
+        <div class="cf-cum">Since you started: <strong>$28,400</strong> saved total</div>
+      </div>
+    </div>
+  </div>
+  <div class="ac-grid" style="grid-template-columns:1fr 1fr 1fr">
+    <div class="ac disc"><div class="ac-h"><div class="ac-tt"><span class="ac-dot" style="background:var(--orange)"></span> Discovery</div><span class="ac-lk">&#8594;</span></div>
+      <div class="ac-split"><div class="ac-col"><div class="ac-col-title effort">Zoca did</div><div class="as-row"><div class="as-l">Content</div><div class="as-v">120</div></div><div class="as-row"><div class="as-l">Keywords</div><div class="as-v">86</div></div></div><div class="ac-col"><div class="ac-col-title result">Resulted</div><div class="as-row"><div class="as-l">Found you</div><div class="as-v">1,480</div></div><div class="as-row"><div class="as-l">Enquiries</div><div class="as-v">128</div></div></div></div>
+    </div>
+    <div class="ac fd"><div class="ac-h"><div class="ac-tt"><span class="ac-dot" style="background:var(--magenta)"></span> Front Desk</div><span class="ac-lk">&#8594;</span></div>
+      <div class="ac-split"><div class="ac-col"><div class="ac-col-title effort">Zoca did</div><div class="as-row"><div class="as-l">Answered</div><div class="as-v">186</div></div><div class="as-row"><div class="as-l">Spam blocked</div><div class="as-v">32</div></div></div><div class="ac-col"><div class="ac-col-title result">Resulted</div><div class="as-row"><div class="as-l">Overflow</div><div class="as-v">14</div></div><div class="as-row"><div class="as-l">Time saved</div><div class="as-v">18.5<span class="u">h</span></div></div></div></div>
+    </div>
+    <div class="ac bk"><div class="ac-h"><div class="ac-tt"><span class="ac-dot" style="background:var(--violet)"></span> Bookings</div><span class="ac-lk">&#8594;</span></div>
+      <div class="ac-split"><div class="ac-col"><div class="ac-col-title effort">Zoca did</div><div class="as-row"><div class="as-l">Recovered</div><div class="as-v">6</div></div><div class="as-row"><div class="as-l">Processed</div><div class="as-v">84</div></div></div><div class="ac-col"><div class="ac-col-title result">Resulted</div><div class="as-row"><div class="as-l">Revenue</div><div class="as-v">$18.4<span class="u">k</span></div></div><div class="as-row"><div class="as-l">Saved</div><div class="as-v">$4.2<span class="u">k</span></div></div></div></div>
+    </div>
+  </div>
+  <div class="staff-card"><div class="staff-title">Today's schedule at a glance</div>
+    <div class="staff-row header"><div>Stylist</div><div>Today</div><div>Next open slot</div><div>This week</div></div>
+    <div class="staff-row"><div class="staff-name"><div class="staff-avatar">M</div>Maria</div><div class="staff-val">5 clients<div class="staff-sub">1 cancellation</div></div><div class="staff-val">3:00 PM<div class="staff-sub">today</div></div><div class="staff-val">22 booked<div class="staff-sub">of 30 slots</div></div></div>
+    <div class="staff-row"><div class="staff-name"><div class="staff-avatar">P</div>Priya</div><div class="staff-val">6 clients</div><div class="staff-val">Tomorrow<div class="staff-sub">10:00 AM</div></div><div class="staff-val">26 booked<div class="staff-sub">of 30 slots</div></div></div>
+    <div class="staff-row"><div class="staff-name"><div class="staff-avatar">A</div>Arun</div><div class="staff-val">3 clients</div><div class="staff-val">2:00 PM<div class="staff-sub">today</div></div><div class="staff-val">16 booked<div class="staff-sub">of 30 slots</div></div></div>
+    <div class="staff-row"><div class="staff-name"><div class="staff-avatar">R</div>Riya</div><div class="staff-val">4 clients</div><div class="staff-val">4:30 PM<div class="staff-sub">today</div></div><div class="staff-val">20 booked<div class="staff-sub">of 30 slots</div></div></div>
+  </div>
+  <div class="c"><div class="pr-h"><div class="pr-t">What your agents did this week</div><span class="pr-lk">View all &#8594;</span></div>
+    <div class="pi"><div class="pi-i bk">&#128722;</div><div class="pi-t">Recovered 6 clients who dropped off the booking page</div><div class="pi-tm">This week</div></div>
+    <div class="pi"><div class="pi-i fd">&#128222;</div><div class="pi-t">Handled 14 overflow calls your front desk couldn't take</div><div class="pi-tm">This week</div></div>
+    <div class="pi"><div class="pi-i fd">&#127769;</div><div class="pi-t">Captured 22 after-hours booking requests</div><div class="pi-tm">This week</div></div>
+    <div class="pi"><div class="pi-i disc">&#128221;</div><div class="pi-t">Published 8 blogs and 6 GBP posts</div><div class="pi-tm">This week</div></div>
+    <div class="pi"><div class="pi-i bk">&#128176;</div><div class="pi-t">Collected $4,200 in deposits from 24 bookings</div><div class="pi-tm">This week</div></div>
+  </div>
+</div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+let currentICP = 'solo', currentBundle = 'd';
+function update() {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  const id = currentICP + '-' + currentBundle;
+  const el = document.getElementById(id);
+  if (el) el.classList.add('active');
+  const fd = document.getElementById('si-fd'), bk = document.getElementById('si-bk'), inbox = document.getElementById('si-inbox');
+  fd.classList.toggle('dim', currentBundle === 'd');
+  bk.classList.toggle('dim', currentBundle !== 'dfb');
+  inbox.classList.toggle('dim', currentBundle === 'd');
+}
+function setICP(icp) {
+  currentICP = icp;
+  document.querySelectorAll('.icp-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.icp-btn')[icp === 'solo' ? 0 : 1].classList.add('active');
+  update();
+}
+function setBundle(b) {
+  currentBundle = b;
+  document.querySelectorAll('.b-btn').forEach(x => x.classList.remove('active'));
+  document.querySelectorAll('.b-btn')[b === 'd' ? 0 : b === 'df' ? 1 : 2].classList.add('active');
+  update();
+}
+update();
+</script>
+</body>
+</html>
