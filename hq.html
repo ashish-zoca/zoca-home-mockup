@@ -3,411 +3,268 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Zoca HQ — Deka Lash Pilot Dashboard</title>
+<title>Zoca HQ — Deka Lash</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fraunces:ital,wght@1,100;1,300&display=swap" rel="stylesheet">
 <style>
-:root {
-  --warm:#FFF3E9;--black:#240010;--black-700:#664951;--black-500:#917A7D;
-  --black-100:#DECFC8;--black-50:#F4E7DE;
-  --mg:#FF6AAB;--mg-dark:#AD034D;--mg-100:#FFC7D5;--mg-50:#FFE8E4;
-  --vi:#805AFF;--vi-100:#ECDCEC;--vi-50:#F3ECFA;
-  --or:#FF872B;--or-100:#FFE3CD;--or-50:#FFEEDF;
-  --gn:#2D8A4E;--gn-50:#F0FAF2;--gn-light:#E8F5E9;
-  --yl:#FFF242;
-  --red:#D32F2F;--red-50:#FFEBEE;
-  --amber:#F57C00;--amber-50:#FFF3E0;
-}
+:root{--w:#FFF3E9;--bk:#240010;--bk7:#664951;--bk5:#917A7D;--bk1:#DECFC8;--bk0:#F4E7DE;--mg:#FF6AAB;--mgd:#AD034D;--mg1:#FFC7D5;--mg0:#FFE8E4;--vi:#805AFF;--vi1:#ECDCEC;--vi0:#F3ECFA;--or:#FF872B;--or1:#FFE3CD;--or0:#FFEEDF;--gn:#2D8A4E;--gn0:#F0FAF2;--yl:#FFF242;--rd:#D32F2F;--rd0:#FFEBEE;--am:#F57C00;--am0:#FFF3E0}
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Inter',-apple-system,sans-serif;background:var(--black);color:var(--black)}
-
+body{font-family:'Inter',sans-serif;background:var(--bk);color:var(--bk)}
 .app{display:flex;min-height:100vh}
-
-/* SIDEBAR */
-.side{width:220px;background:var(--black);padding:20px 0;flex-shrink:0;position:fixed;top:0;bottom:0;overflow-y:auto;border-right:1px solid rgba(255,255,255,.06)}
-.side-logo{padding:0 20px 6px;font-size:22px;font-weight:800;color:var(--warm);letter-spacing:2px}
-.side-sub{padding:0 20px 20px;font-size:10px;color:var(--mg);font-weight:500;letter-spacing:.5px}
-.side-sec{padding:0 14px;margin-bottom:18px}
-.side-sec-t{font-size:9px;font-weight:600;text-transform:uppercase;color:var(--black-500);letter-spacing:1px;padding:0 6px;margin-bottom:6px}
-.si{display:flex;align-items:center;gap:9px;padding:8px 12px;border-radius:8px;font-size:12px;color:var(--warm);opacity:.6;cursor:pointer;margin-bottom:2px;transition:all .15s}
+.side{width:210px;background:var(--bk);padding:18px 0;flex-shrink:0;position:fixed;top:0;bottom:0;overflow-y:auto;z-index:10}
+.side-logo{padding:0 18px 4px;font-size:20px;font-weight:800;color:var(--w);letter-spacing:2px}
+.side-sub{padding:0 18px 18px;font-size:9px;color:var(--mg);font-weight:600;letter-spacing:.5px}
+.ss{padding:0 12px;margin-bottom:14px}
+.ss-t{font-size:8px;font-weight:600;text-transform:uppercase;color:var(--bk5);letter-spacing:1px;padding:0 8px;margin-bottom:5px}
+.si{display:flex;align-items:center;gap:8px;padding:7px 12px;border-radius:7px;font-size:11.5px;color:var(--w);opacity:.55;cursor:pointer;margin-bottom:1px;transition:all .12s}
 .si:hover{opacity:1;background:rgba(255,255,255,.05)}
-.si.active{opacity:1;background:rgba(255,106,171,.15);color:var(--mg)}
-.si .dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
-.si .icon{font-size:14px;width:18px;text-align:center}
-.loc-list{padding:0 14px;margin-bottom:18px}
-.loc-item{display:flex;align-items:center;gap:8px;padding:6px 12px;border-radius:6px;font-size:11px;color:var(--warm);opacity:.5;cursor:pointer;margin-bottom:1px}
-.loc-item:hover{opacity:.8;background:rgba(255,255,255,.03)}
-.loc-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
-.loc-dot.green{background:var(--gn)} .loc-dot.amber{background:var(--amber)} .loc-dot.red{background:var(--red)}
-
-/* MAIN */
-.main{flex:1;margin-left:220px;background:var(--warm);min-height:100vh}
-.topbar{display:flex;justify-content:space-between;align-items:center;padding:16px 32px;border-bottom:1px solid rgba(36,0,16,.06)}
-.topbar h2{font-size:15px;font-weight:600}
-.topbar-right{display:flex;align-items:center;gap:12px}
-.pilot-badge{background:var(--vi-50);color:var(--vi);padding:4px 12px;border-radius:12px;font-size:10px;font-weight:600}
-.cmd{display:flex;align-items:center;gap:5px;background:var(--mg-dark);color:#fff;padding:7px 14px;border-radius:7px;font-size:11px;font-weight:600;cursor:pointer}
-
-.content{padding:24px 32px;max-width:1200px}
-.greet{font-size:22px;font-weight:700;letter-spacing:-.5px;margin-bottom:4px;text-transform:uppercase}
-.greet-sub{font-size:12px;color:var(--black-500);margin-bottom:24px}
-
-/* CARDS */
-.c{background:#fff;border-radius:14px;padding:20px 24px;margin-bottom:16px;box-shadow:0 1px 3px rgba(36,0,16,.05)}
-.ct{font-family:'Fraunces',serif;font-style:italic;font-weight:100;font-size:14px;color:var(--mg-dark);margin-bottom:16px}
-
-/* PILOT SCORECARD */
-.scorecard{background:linear-gradient(135deg,var(--black),#3B0119);border-radius:16px;padding:28px 32px;margin-bottom:16px;color:var(--warm)}
-.sc-title{font-family:'Fraunces',serif;font-style:italic;font-weight:100;font-size:14px;color:var(--mg);margin-bottom:20px}
-.sc-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
-.sc-item{text-align:center;padding:16px;border-radius:12px;background:rgba(255,255,255,.06)}
-.sc-label{font-size:9px;text-transform:uppercase;letter-spacing:.5px;opacity:.6;margin-bottom:4px}
-.sc-before{font-size:14px;font-weight:500;opacity:.5;text-decoration:line-through;margin-bottom:2px}
-.sc-after{font-size:28px;font-weight:700;color:var(--yl)}
-.sc-change{font-size:11px;font-weight:600;color:var(--gn);margin-top:4px}
-.sc-divider{grid-column:1/-1;border-top:1px solid rgba(255,255,255,.1);margin:4px 0}
-.sc-projection{grid-column:1/-1;text-align:center;padding:16px;background:rgba(255,242,66,.08);border-radius:12px;border:1px solid rgba(255,242,66,.2)}
-.sc-proj-label{font-size:11px;color:var(--yl);font-weight:500;margin-bottom:4px}
-.sc-proj-value{font-size:20px;font-weight:700;color:var(--yl)}
-.sc-proj-sub{font-size:11px;opacity:.5;margin-top:4px}
-
-/* FLEET HEALTH */
-.fleet-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:16px}
-.fleet-card{background:#fff;border-radius:12px;padding:14px 16px;box-shadow:0 1px 3px rgba(36,0,16,.05);cursor:pointer;transition:all .15s;border-left:4px solid transparent;position:relative}
-.fleet-card:hover{box-shadow:0 4px 12px rgba(36,0,16,.1);transform:translateY(-1px)}
-.fleet-card.green{border-left-color:var(--gn)}
-.fleet-card.amber{border-left-color:var(--amber)}
-.fleet-card.red{border-left-color:var(--red)}
-.fc-name{font-size:12px;font-weight:600;margin-bottom:2px}
-.fc-city{font-size:10px;color:var(--black-500);margin-bottom:10px}
-.fc-stats{display:grid;grid-template-columns:1fr 1fr;gap:6px}
-.fc-stat{}
-.fc-stat-label{font-size:8px;text-transform:uppercase;letter-spacing:.3px;color:var(--black-500)}
-.fc-stat-value{font-size:14px;font-weight:700}
-.fc-stat-value.green{color:var(--gn)} .fc-stat-value.amber{color:var(--amber)} .fc-stat-value.red{color:var(--red)}
-.fc-status{position:absolute;top:12px;right:12px;width:8px;height:8px;border-radius:50%}
-.fc-status.green{background:var(--gn)} .fc-status.amber{background:var(--amber)} .fc-status.red{background:var(--red)}
-
-/* ATTENTION */
-.att{border-left:4px solid var(--red)}
-.att-h{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
-.att-h h3{font-size:14px;font-weight:600}
-.att-n{background:var(--red);color:#fff;font-size:10px;font-weight:700;padding:2px 8px;border-radius:8px}
-.ai{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid rgba(36,0,16,.04)}
+.si.act{opacity:1;background:rgba(255,106,171,.15);color:var(--mg)}
+.si .d{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+.si .ic{font-size:13px;width:16px;text-align:center}
+.loc-item{display:flex;align-items:center;gap:7px;padding:5px 20px;font-size:10.5px;color:var(--w);opacity:.4;cursor:pointer;transition:all .12s}
+.loc-item:hover{opacity:.8}
+.loc-item.act{opacity:1;color:var(--mg)}
+.ld{width:5px;height:5px;border-radius:50%;flex-shrink:0}
+.ld.g{background:var(--gn)}.ld.a{background:var(--am)}.ld.r{background:var(--rd)}
+.main{flex:1;margin-left:210px;background:var(--w);min-height:100vh}
+.top{display:flex;justify-content:space-between;align-items:center;padding:14px 28px;border-bottom:1px solid rgba(36,0,16,.06)}
+.top h2{font-size:14px;font-weight:600}
+.top-r{display:flex;align-items:center;gap:10px}
+.badge{background:var(--vi0);color:var(--vi);padding:3px 10px;border-radius:10px;font-size:9px;font-weight:600}
+.cmd{background:var(--mgd);color:#fff;padding:6px 12px;border-radius:6px;font-size:10px;font-weight:600;cursor:pointer}
+.cnt{padding:22px 28px;max-width:1160px}
+.greet{font-size:20px;font-weight:700;letter-spacing:-.5px;margin-bottom:2px;text-transform:uppercase}
+.greet-s{font-size:11px;color:var(--bk5);margin-bottom:22px}
+.bread{display:flex;align-items:center;gap:6px;font-size:11px;margin-bottom:16px;color:var(--bk5)}
+.bread a{color:var(--mgd);cursor:pointer;text-decoration:none;font-weight:500}
+.bread a:hover{text-decoration:underline}
+.bread span{opacity:.6}
+.c{background:#fff;border-radius:12px;padding:18px 22px;margin-bottom:14px;box-shadow:0 1px 2px rgba(36,0,16,.04)}
+.ct{font-family:'Fraunces',serif;font-style:italic;font-weight:100;font-size:13px;color:var(--mgd);margin-bottom:14px}
+.sc{background:var(--bk);border-radius:14px;padding:22px 26px;margin-bottom:14px;color:var(--w)}
+.sc-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+.sc-top-l{font-size:12px;font-weight:600}
+.sc-top-r{font-size:9px;color:var(--bk5)}
+.sc-row{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:14px}
+.sc-item{padding:14px;border-radius:10px;background:rgba(255,255,255,.04);text-align:center}
+.sc-lab{font-size:8px;text-transform:uppercase;letter-spacing:.5px;opacity:.5;margin-bottom:8px}
+.sc-old{font-size:11px;opacity:.4;text-decoration:line-through;margin-bottom:2px}
+.sc-new{font-size:26px;font-weight:700;color:var(--yl)}
+.sc-ch{font-size:10px;color:var(--gn);margin-top:4px;font-weight:500}
+.sc-proj{text-align:center;padding:12px;background:rgba(255,242,66,.06);border-radius:10px;border:1px solid rgba(255,242,66,.12)}
+.sc-proj-lab{font-size:10px;color:var(--yl);opacity:.7;margin-bottom:2px}
+.sc-proj-val{font-size:14px;font-weight:600;color:var(--yl)}
+.sc-proj-sub{font-size:9px;opacity:.35;margin-top:2px}
+.fleet{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:14px}
+.fc{background:#fff;border-radius:10px;padding:12px 14px;box-shadow:0 1px 2px rgba(36,0,16,.04);cursor:pointer;transition:all .12s;border-left:3px solid transparent;position:relative}
+.fc:hover{box-shadow:0 3px 10px rgba(36,0,16,.08);transform:translateY(-1px)}
+.fc.g{border-left-color:var(--gn)}.fc.a{border-left-color:var(--am)}.fc.r{border-left-color:var(--rd)}
+.fc-name{font-size:11px;font-weight:600;margin-bottom:1px}
+.fc-city{font-size:9px;color:var(--bk5);margin-bottom:8px}
+.fc-row{display:flex;justify-content:space-between;margin-bottom:3px}
+.fc-k{font-size:8px;color:var(--bk5)}.fc-v{font-size:10px;font-weight:600}
+.fc-v.g{color:var(--gn)}.fc-v.a{color:var(--am)}.fc-v.r{color:var(--rd)}
+.fc-dot{position:absolute;top:10px;right:10px;width:6px;height:6px;border-radius:50%}
+.fc-dot.g{background:var(--gn)}.fc-dot.a{background:var(--am)}.fc-dot.r{background:var(--rd)}
+.att{border-left:3px solid var(--rd)}
+.att-h{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.att-h h3{font-size:13px;font-weight:600}
+.att-n{background:var(--rd);color:#fff;font-size:9px;font-weight:700;padding:2px 7px;border-radius:7px}
+.ai{display:flex;align-items:center;gap:8px;padding:7px 0;border-bottom:1px solid rgba(36,0,16,.03);font-size:11px}
 .ai:last-child{border-bottom:none}
-.ai-loc{background:var(--black-50);padding:2px 8px;border-radius:4px;font-size:10px;font-weight:600;flex-shrink:0}
-.ai-t{font-size:12px;flex:1}
-.ai-tm{font-size:10px;color:var(--black-500);flex-shrink:0}
-.ai-sev{width:8px;height:8px;border-radius:50%;flex-shrink:0}
-
-/* AGENT FLEET CARDS */
-.af-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-bottom:16px}
-.af-card{background:#fff;border-radius:14px;padding:20px 24px;box-shadow:0 1px 3px rgba(36,0,16,.05);border-top:3px solid transparent}
-.af-card.disc{border-top-color:var(--or)} .af-card.voice{border-top-color:var(--mg)} .af-card.loyalty{border-top-color:var(--vi)}
-.af-h{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
-.af-title{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600}
-.af-dot{width:10px;height:10px;border-radius:50%}
-.af-link{font-size:10px;color:var(--mg-dark);font-weight:500;cursor:pointer}
-.af-split{display:grid;grid-template-columns:1fr 1fr;gap:0}
-.af-col{padding:8px 12px}
-.af-col:first-child{border-right:1px dashed rgba(36,0,16,.08)}
-.af-col-t{font-size:9px;text-transform:uppercase;letter-spacing:.5px;font-weight:600;margin-bottom:8px}
-.af-col-t.effort{color:var(--gn)} .af-col-t.result{color:var(--black-500)}
-.af-row{margin-bottom:6px}
-.af-label{font-size:9px;text-transform:uppercase;letter-spacing:.4px;color:var(--black-500)}
-.af-val{font-size:18px;font-weight:700;letter-spacing:-.3px}
-.af-val .u{font-size:10px;font-weight:500;opacity:.5}
-.af-sub{font-size:9px;color:var(--black-500)}
-.af-fleet-bar{margin-top:12px;padding-top:12px;border-top:1px dashed rgba(36,0,16,.06)}
-.af-fleet-label{font-size:9px;color:var(--black-500);margin-bottom:6px}
-.af-mini-bars{display:flex;gap:3px;align-items:flex-end;height:30px}
-.af-mini-bar{flex:1;border-radius:2px 2px 0 0;position:relative;cursor:pointer}
-.af-mini-bar:hover::after{content:attr(data-tip);position:absolute;bottom:100%;left:50%;transform:translateX(-50%);background:var(--black);color:var(--warm);padding:2px 6px;border-radius:4px;font-size:8px;white-space:nowrap;margin-bottom:4px}
-
-/* PROOF */
-.pr-h{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
-.pr-t{font-size:14px;font-weight:600}
-.pr-lk{font-size:10px;color:var(--mg-dark);font-weight:500;cursor:pointer}
-.pi{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid rgba(36,0,16,.04)}
+.ai-sev{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+.ai-loc{background:var(--bk0);padding:1px 6px;border-radius:3px;font-size:9px;font-weight:600;flex-shrink:0}
+.ai-t{flex:1}.ai-tm{font-size:9px;color:var(--bk5);flex-shrink:0}
+.ag{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:14px}
+.ag-card{background:#fff;border-radius:10px;padding:16px 18px;box-shadow:0 1px 2px rgba(36,0,16,.04);border-top:2px solid transparent;cursor:pointer;transition:all .12s}
+.ag-card:hover{box-shadow:0 3px 10px rgba(36,0,16,.08)}
+.ag-card.disc{border-top-color:var(--or)}.ag-card.voice{border-top-color:var(--mg)}.ag-card.loyalty{border-top-color:var(--vi)}
+.ag-h{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.ag-tt{display:flex;align-items:center;gap:6px;font-size:12px;font-weight:600}
+.ag-dot{width:8px;height:8px;border-radius:50%}
+.ag-lk{font-size:9px;color:var(--mgd);font-weight:500}
+.ag-stats{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.ag-s-lab{font-size:8px;text-transform:uppercase;letter-spacing:.3px;color:var(--bk5)}
+.ag-s-val{font-size:16px;font-weight:700;letter-spacing:-.3px}
+.ag-s-sub{font-size:8px;color:var(--bk5)}
+.pr-h{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.pr-t{font-size:13px;font-weight:600}
+.pr-lk{font-size:9px;color:var(--mgd);font-weight:500;cursor:pointer}
+.pi{display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid rgba(36,0,16,.03);font-size:11px}
 .pi:last-child{border-bottom:none}
-.pi-i{width:28px;height:28px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0}
-.pi-i.disc{background:var(--or-50)} .pi-i.voice{background:var(--mg-50)} .pi-i.loyalty{background:var(--vi-50)}
-.pi-agg{background:var(--black-50);padding:2px 8px;border-radius:4px;font-size:10px;font-weight:600;color:var(--black-500);flex-shrink:0}
-.pi-t{flex:1;font-size:12px}
-.pi-tm{font-size:10px;color:var(--black-500);flex-shrink:0}
-
-/* AGGREGATE FUNNEL */
-.agg-funnel{display:flex;align-items:stretch;gap:0}
-.agg-stage{flex:1;text-align:center;padding:16px 10px;border-radius:12px}
-.agg-stage .l{font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:.4px;margin-bottom:3px;opacity:.55}
-.agg-stage .v{font-size:28px;font-weight:700;letter-spacing:-1px;line-height:1.1}
-.agg-stage .s{font-size:10px;color:var(--black-500);margin-top:2px}
-.agg-stage .t{font-size:10px;font-weight:600;margin-top:3px;color:var(--gn)}
-.agg-stage .effort{font-size:9px;color:var(--black-500);margin-top:6px;padding-top:6px;border-top:1px dashed rgba(36,0,16,.08);font-style:italic}
-.agg-arrow{display:flex;align-items:center;justify-content:center;font-size:16px;color:var(--black-100);padding:0 3px;flex-shrink:0}
-.agg-stage.d{background:var(--or-50)} .agg-stage.v{background:var(--mg-50)} .agg-stage.ly{background:var(--vi-50)}
+.pi-i{width:24px;height:24px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0}
+.pi-i.disc{background:var(--or0)}.pi-i.voice{background:var(--mg0)}.pi-i.loyalty{background:var(--vi0)}
+.pi-agg{background:var(--bk0);padding:1px 6px;border-radius:3px;font-size:8px;font-weight:600;color:var(--bk5);flex-shrink:0}
+.pi-t{flex:1}.pi-tm{font-size:9px;color:var(--bk5);flex-shrink:0}
+.l2-header{display:flex;align-items:center;gap:12px;margin-bottom:18px}
+.l2-name{font-size:18px;font-weight:700}
+.l2-badge{padding:3px 10px;border-radius:10px;font-size:9px;font-weight:600}
+.l2-badge.g{background:var(--gn0);color:var(--gn)}.l2-badge.a{background:var(--am0);color:var(--am)}.l2-badge.r{background:var(--rd0);color:var(--rd)}
+.fleet-table{width:100%;border-collapse:separate;border-spacing:0}
+.fleet-table th{font-size:8px;text-transform:uppercase;letter-spacing:.5px;color:var(--bk5);font-weight:600;padding:8px 12px;text-align:left;border-bottom:1px solid var(--bk1)}
+.fleet-table td{font-size:12px;padding:10px 12px;border-bottom:1px solid rgba(36,0,16,.04)}
+.fleet-table tr:hover td{background:rgba(36,0,16,.01)}
+.fleet-table .val{font-weight:600}
+.fleet-table .trend{font-size:10px;font-weight:500}
+.fleet-table .trend.g{color:var(--gn)}.fleet-table .trend.a{color:var(--am)}.fleet-table .trend.r{color:var(--rd)}
+.fleet-table .loc-name{font-weight:600;display:flex;align-items:center;gap:6px}
+.fleet-table .avg-row td{background:var(--bk0);font-weight:600;border-top:2px solid var(--bk1)}
+.ff{display:flex;align-items:stretch;gap:0}
+.fs{flex:1;text-align:center;padding:14px 8px;border-radius:10px}
+.fs .l{font-size:9px;font-weight:500;text-transform:uppercase;letter-spacing:.4px;opacity:.5;margin-bottom:2px}
+.fs .v{font-size:26px;font-weight:700;letter-spacing:-1px;line-height:1.1}
+.fs .s{font-size:9px;color:var(--bk5);margin-top:2px}
+.fs .t{font-size:9px;font-weight:600;margin-top:3px;color:var(--gn)}
+.fs .ef{font-size:8px;color:var(--bk5);margin-top:5px;padding-top:5px;border-top:1px dashed rgba(36,0,16,.06);font-style:italic}
+.fa{display:flex;align-items:center;font-size:14px;color:var(--bk1);padding:0 2px;flex-shrink:0}
+.fs.dg{background:var(--or0)}.fs.vg{background:var(--mg0)}.fs.lg{background:var(--vi0)}
+.note{border-radius:10px;padding:14px 18px;margin-bottom:14px;font-size:11px}
+.note strong{display:block;font-size:12px;margin-bottom:3px}
+.note.disc{background:var(--or0)}.note.voice{background:var(--mg0)}.note.loyalty{background:var(--vi0)}
+.view{display:none}.view.act{display:block}
 </style>
 </head>
 <body>
-
 <div class="app">
-  <div class="side">
-    <div class="side-logo">ZOCA</div>
-    <div class="side-sub">HQ DASHBOARD</div>
-    <div class="side-sec">
-      <div class="si active"><span class="icon">&#9751;</span> Portfolio</div>
-      <div class="si"><span class="icon">&#128202;</span> Pilot Scorecard</div>
-      <div class="si"><span class="icon">&#128276;</span> Alerts</div>
-    </div>
-    <div class="side-sec">
-      <div class="side-sec-t">Fleet Views</div>
-      <div class="si"><span class="dot" style="background:var(--or)"></span> Discovery</div>
-      <div class="si"><span class="dot" style="background:var(--mg)"></span> Voice AI</div>
-      <div class="si"><span class="dot" style="background:var(--vi)"></span> Loyalty</div>
-    </div>
-    <div class="side-sec">
-      <div class="side-sec-t">Pilot Locations (10)</div>
-    </div>
-    <div class="loc-list">
-      <div class="loc-item"><span class="loc-dot green"></span> Scottsdale, AZ</div>
-      <div class="loc-item"><span class="loc-dot green"></span> Tampa, FL</div>
-      <div class="loc-item"><span class="loc-dot green"></span> Charlotte, NC</div>
-      <div class="loc-item"><span class="loc-dot green"></span> Austin, TX</div>
-      <div class="loc-item"><span class="loc-dot green"></span> Denver, CO</div>
-      <div class="loc-item"><span class="loc-dot green"></span> Nashville, TN</div>
-      <div class="loc-item"><span class="loc-dot green"></span> Columbus, OH</div>
-      <div class="loc-item"><span class="loc-dot amber"></span> Pittsburgh, PA</div>
-      <div class="loc-item"><span class="loc-dot amber"></span> Raleigh, NC</div>
-      <div class="loc-item"><span class="loc-dot red"></span> Portland, OR</div>
-    </div>
-    <div class="side-sec">
-      <div class="side-sec-t">Settings</div>
-      <div class="si"><span class="icon">&#9881;</span> Brand & Brain</div>
-      <div class="si"><span class="icon">&#128101;</span> Team Access</div>
-    </div>
+<div class="side">
+  <div class="side-logo">ZOCA</div>
+  <div class="side-sub">HQ DASHBOARD</div>
+  <div class="ss">
+    <div class="si act" onclick="go('portfolio')"><span class="ic">&#9751;</span> Portfolio</div>
+    <div class="si" onclick="go('portfolio')"><span class="ic">&#128276;</span> Alerts</div>
   </div>
-
-  <div class="main">
-    <div class="topbar">
-      <h2>Deka Lash &mdash; HQ Portfolio</h2>
-      <div class="topbar-right">
-        <span class="pilot-badge">PILOT &middot; 10 of 130 locations</span>
-        <div class="cmd">&#10024; Command Center</div>
-      </div>
-    </div>
-
-    <div class="content">
-      <div class="greet">Good morning, Jennifer</div>
-      <div class="greet-sub">Pilot Week 6 of 8 &middot; Last updated 2 minutes ago</div>
-
-      <!-- PILOT SCORECARD -->
-      <div class="scorecard">
-        <div class="sc-title">Pilot scorecard &mdash; before Zoca vs. now (6 weeks in)</div>
-        <div class="sc-grid">
-          <div class="sc-item">
-            <div class="sc-label">Google visibility</div>
-            <div class="sc-before">4,200 / mo</div>
-            <div class="sc-after">6,840</div>
-            <div class="sc-change">+63% across 10 locations</div>
-          </div>
-          <div class="sc-item">
-            <div class="sc-label">Calls answered</div>
-            <div class="sc-before">72% answer rate</div>
-            <div class="sc-after">100%</div>
-            <div class="sc-change">0 missed calls</div>
-          </div>
-          <div class="sc-item">
-            <div class="sc-label">Repeat bookings</div>
-            <div class="sc-before">840 / mo</div>
-            <div class="sc-after">1,120</div>
-            <div class="sc-change">+33% via loyalty campaigns</div>
-          </div>
-          <div class="sc-item">
-            <div class="sc-label">Avg Google rating</div>
-            <div class="sc-before">4.2 stars</div>
-            <div class="sc-after">4.6</div>
-            <div class="sc-change">+0.4 across pilot locations</div>
-          </div>
-          <div class="sc-divider"></div>
-          <div class="sc-projection">
-            <div class="sc-proj-label">Projected impact at 130 locations</div>
-            <div class="sc-proj-value">+34,320 additional repeat bookings / year &middot; 100% call coverage fleet-wide</div>
-            <div class="sc-proj-sub">Based on 10-location pilot averages, extrapolated to full fleet</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- AGGREGATE FUNNEL -->
-      <div class="c">
-        <div class="ct">Across all 10 pilot locations this month</div>
-        <div class="agg-funnel">
-          <div class="agg-stage d">
-            <div class="l">Found your locations</div>
-            <div class="v">14,800</div>
-            <div class="s">Google + Websites + AI</div>
-            <div class="t">+63% vs pre-Zoca</div>
-            <div class="effort">1,200 content pieces published</div>
-          </div>
-          <div class="agg-arrow">&#10132;</div>
-          <div class="agg-stage v">
-            <div class="l">Called your locations</div>
-            <div class="v">1,860</div>
-            <div class="s">across 10 locations</div>
-            <div class="t" style="color:var(--mg-dark)">100% answered</div>
-            <div class="effort">0 missed, 320 spam filtered</div>
-          </div>
-          <div class="agg-arrow">&#10132;</div>
-          <div class="agg-stage v">
-            <div class="l">New enquiries</div>
-            <div class="v">1,280</div>
-            <div class="s">qualified contacts</div>
-            <div class="t">+28% vs pre-Zoca</div>
-            <div class="effort">Avg response: &lt;45 seconds</div>
-          </div>
-          <div class="agg-arrow">&#10132;</div>
-          <div class="agg-stage ly">
-            <div class="l">Loyalty re-engaged</div>
-            <div class="v">1,120</div>
-            <div class="s">repeat bookings from campaigns</div>
-            <div class="t">+33% vs pre-Zoca</div>
-            <div class="effort">4,200 campaign calls made</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- FLEET HEALTH -->
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
-        <div style="font-size:14px;font-weight:600">Location health</div>
-        <div style="font-size:10px;color:var(--black-500)">
-          <span style="display:inline-flex;align-items:center;gap:4px;margin-right:12px"><span class="loc-dot green" style="width:8px;height:8px"></span> On track (7)</span>
-          <span style="display:inline-flex;align-items:center;gap:4px;margin-right:12px"><span class="loc-dot amber" style="width:8px;height:8px"></span> Needs attention (2)</span>
-          <span style="display:inline-flex;align-items:center;gap:4px"><span class="loc-dot red" style="width:8px;height:8px"></span> Action needed (1)</span>
-        </div>
-      </div>
-      <div class="fleet-grid">
-        <div class="fleet-card green"><div class="fc-status green"></div><div class="fc-name">Scottsdale, AZ</div><div class="fc-city">Studio #104</div><div class="fc-stats"><div class="fc-stat"><div class="fc-stat-label">Visibility</div><div class="fc-stat-value green">+72%</div></div><div class="fc-stat"><div class="fc-stat-label">Calls</div><div class="fc-stat-value">210</div></div><div class="fc-stat"><div class="fc-stat-label">Repeat</div><div class="fc-stat-value green">+38%</div></div><div class="fc-stat"><div class="fc-stat-label">Rating</div><div class="fc-stat-value">4.8</div></div></div></div>
-        <div class="fleet-card green"><div class="fc-status green"></div><div class="fc-name">Tampa, FL</div><div class="fc-city">Studio #089</div><div class="fc-stats"><div class="fc-stat"><div class="fc-stat-label">Visibility</div><div class="fc-stat-value green">+68%</div></div><div class="fc-stat"><div class="fc-stat-label">Calls</div><div class="fc-stat-value">195</div></div><div class="fc-stat"><div class="fc-stat-label">Repeat</div><div class="fc-stat-value green">+41%</div></div><div class="fc-stat"><div class="fc-stat-label">Rating</div><div class="fc-stat-value">4.7</div></div></div></div>
-        <div class="fleet-card green"><div class="fc-status green"></div><div class="fc-name">Charlotte, NC</div><div class="fc-city">Studio #112</div><div class="fc-stats"><div class="fc-stat"><div class="fc-stat-label">Visibility</div><div class="fc-stat-value green">+65%</div></div><div class="fc-stat"><div class="fc-stat-label">Calls</div><div class="fc-stat-value">188</div></div><div class="fc-stat"><div class="fc-stat-label">Repeat</div><div class="fc-stat-value green">+35%</div></div><div class="fc-stat"><div class="fc-stat-label">Rating</div><div class="fc-stat-value">4.6</div></div></div></div>
-        <div class="fleet-card green"><div class="fc-status green"></div><div class="fc-name">Austin, TX</div><div class="fc-city">Studio #076</div><div class="fc-stats"><div class="fc-stat"><div class="fc-stat-label">Visibility</div><div class="fc-stat-value green">+71%</div></div><div class="fc-stat"><div class="fc-stat-label">Calls</div><div class="fc-stat-value">204</div></div><div class="fc-stat"><div class="fc-stat-label">Repeat</div><div class="fc-stat-value green">+29%</div></div><div class="fc-stat"><div class="fc-stat-label">Rating</div><div class="fc-stat-value">4.7</div></div></div></div>
-        <div class="fleet-card green"><div class="fc-status green"></div><div class="fc-name">Denver, CO</div><div class="fc-city">Studio #091</div><div class="fc-stats"><div class="fc-stat"><div class="fc-stat-label">Visibility</div><div class="fc-stat-value green">+58%</div></div><div class="fc-stat"><div class="fc-stat-label">Calls</div><div class="fc-stat-value">176</div></div><div class="fc-stat"><div class="fc-stat-label">Repeat</div><div class="fc-stat-value green">+31%</div></div><div class="fc-stat"><div class="fc-stat-label">Rating</div><div class="fc-stat-value">4.5</div></div></div></div>
-        <div class="fleet-card green"><div class="fc-status green"></div><div class="fc-name">Nashville, TN</div><div class="fc-city">Studio #118</div><div class="fc-stats"><div class="fc-stat"><div class="fc-stat-label">Visibility</div><div class="fc-stat-value green">+61%</div></div><div class="fc-stat"><div class="fc-stat-label">Calls</div><div class="fc-stat-value">182</div></div><div class="fc-stat"><div class="fc-stat-label">Repeat</div><div class="fc-stat-value green">+36%</div></div><div class="fc-stat"><div class="fc-stat-label">Rating</div><div class="fc-stat-value">4.6</div></div></div></div>
-        <div class="fleet-card green"><div class="fc-status green"></div><div class="fc-name">Columbus, OH</div><div class="fc-city">Studio #095</div><div class="fc-stats"><div class="fc-stat"><div class="fc-stat-label">Visibility</div><div class="fc-stat-value green">+55%</div></div><div class="fc-stat"><div class="fc-stat-label">Calls</div><div class="fc-stat-value">168</div></div><div class="fc-stat"><div class="fc-stat-label">Repeat</div><div class="fc-stat-value green">+27%</div></div><div class="fc-stat"><div class="fc-stat-label">Rating</div><div class="fc-stat-value">4.5</div></div></div></div>
-        <div class="fleet-card amber"><div class="fc-status amber"></div><div class="fc-name">Pittsburgh, PA</div><div class="fc-city">Studio #067</div><div class="fc-stats"><div class="fc-stat"><div class="fc-stat-label">Visibility</div><div class="fc-stat-value amber">+22%</div></div><div class="fc-stat"><div class="fc-stat-label">Calls</div><div class="fc-stat-value">142</div></div><div class="fc-stat"><div class="fc-stat-label">Repeat</div><div class="fc-stat-value amber">+12%</div></div><div class="fc-stat"><div class="fc-stat-label">Rating</div><div class="fc-stat-value">4.3</div></div></div></div>
-        <div class="fleet-card amber"><div class="fc-status amber"></div><div class="fc-name">Raleigh, NC</div><div class="fc-city">Studio #121</div><div class="fc-stats"><div class="fc-stat"><div class="fc-stat-label">Visibility</div><div class="fc-stat-value amber">+18%</div></div><div class="fc-stat"><div class="fc-stat-label">Calls</div><div class="fc-stat-value">128</div></div><div class="fc-stat"><div class="fc-stat-label">Repeat</div><div class="fc-stat-value amber">+15%</div></div><div class="fc-stat"><div class="fc-stat-label">Rating</div><div class="fc-stat-value">4.2</div></div></div></div>
-        <div class="fleet-card red"><div class="fc-status red"></div><div class="fc-name">Portland, OR</div><div class="fc-city">Studio #083</div><div class="fc-stats"><div class="fc-stat"><div class="fc-stat-label">Visibility</div><div class="fc-stat-value red">+8%</div></div><div class="fc-stat"><div class="fc-stat-label">Calls</div><div class="fc-stat-value">96</div></div><div class="fc-stat"><div class="fc-stat-label">Repeat</div><div class="fc-stat-value red">+5%</div></div><div class="fc-stat"><div class="fc-stat-label">Rating</div><div class="fc-stat-value red">3.8</div></div></div></div>
-      </div>
-
-      <!-- NEEDS HQ ATTENTION -->
-      <div class="c att">
-        <div class="att-h"><h3>Needs HQ attention</h3><span class="att-n">4</span></div>
-        <div class="ai"><span class="ai-sev" style="background:var(--red)"></span><span class="ai-loc">Portland</span><span class="ai-t">3 negative Google reviews this week — rating dropped to 3.8. Review responses drafted, awaiting brand approval.</span><span class="ai-tm">Today</span></div>
-        <div class="ai"><span class="ai-sev" style="background:var(--amber)"></span><span class="ai-loc">Pittsburgh</span><span class="ai-t">Voice AI coverage gap: phone forwarding misconfigured, 6 calls missed Tuesday.</span><span class="ai-tm">2 days ago</span></div>
-        <div class="ai"><span class="ai-sev" style="background:var(--amber)"></span><span class="ai-loc">Raleigh</span><span class="ai-t">Loyalty campaign engagement 40% below fleet average — customer list may need refresh.</span><span class="ai-tm">This week</span></div>
-        <div class="ai"><span class="ai-sev" style="background:var(--or)"></span><span class="ai-loc">Fleet</span><span class="ai-t">5 blog posts flagged by brand review — off-brand language detected at 2 locations.</span><span class="ai-tm">Yesterday</span></div>
-      </div>
-
-      <!-- AGENT FLEET CARDS -->
-      <div class="af-grid">
-        <div class="af-card disc">
-          <div class="af-h"><div class="af-title"><span class="af-dot" style="background:var(--or)"></span> Discovery</div><span class="af-link">Fleet view &#8594;</span></div>
-          <div class="af-split">
-            <div class="af-col"><div class="af-col-t effort">Zoca did (all 10)</div>
-              <div class="af-row"><div class="af-label">Content published</div><div class="af-val">1,200</div><div class="af-sub">blogs + GBP posts</div></div>
-              <div class="af-row"><div class="af-label">Keywords tracked</div><div class="af-val">860</div><div class="af-sub">86 per location avg</div></div>
-            </div>
-            <div class="af-col"><div class="af-col-t result">Resulted</div>
-              <div class="af-row"><div class="af-label">People found you</div><div class="af-val">14,800</div><div class="af-sub">+63% vs pre-Zoca</div></div>
-              <div class="af-row"><div class="af-label">Enquiries</div><div class="af-val">1,280</div><div class="af-sub">+28% vs pre-Zoca</div></div>
-            </div>
-          </div>
-          <div class="af-fleet-bar">
-            <div class="af-fleet-label">Visibility change by location</div>
-            <div class="af-mini-bars">
-              <div class="af-mini-bar" style="height:28px;background:var(--or)" data-tip="Scottsdale +72%"></div>
-              <div class="af-mini-bar" style="height:26px;background:var(--or)" data-tip="Tampa +68%"></div>
-              <div class="af-mini-bar" style="height:25px;background:var(--or)" data-tip="Charlotte +65%"></div>
-              <div class="af-mini-bar" style="height:27px;background:var(--or)" data-tip="Austin +71%"></div>
-              <div class="af-mini-bar" style="height:22px;background:var(--or)" data-tip="Denver +58%"></div>
-              <div class="af-mini-bar" style="height:23px;background:var(--or)" data-tip="Nashville +61%"></div>
-              <div class="af-mini-bar" style="height:21px;background:var(--or)" data-tip="Columbus +55%"></div>
-              <div class="af-mini-bar" style="height:12px;background:var(--amber)" data-tip="Pittsburgh +22%"></div>
-              <div class="af-mini-bar" style="height:10px;background:var(--amber)" data-tip="Raleigh +18%"></div>
-              <div class="af-mini-bar" style="height:5px;background:var(--red)" data-tip="Portland +8%"></div>
-            </div>
-          </div>
-        </div>
-
-        <div class="af-card voice">
-          <div class="af-h"><div class="af-title"><span class="af-dot" style="background:var(--mg)"></span> Voice AI</div><span class="af-link">Fleet view &#8594;</span></div>
-          <div class="af-split">
-            <div class="af-col"><div class="af-col-t effort">Zoca did (all 10)</div>
-              <div class="af-row"><div class="af-label">Calls answered</div><div class="af-val">1,860</div><div class="af-sub">100% coverage</div></div>
-              <div class="af-row"><div class="af-label">Spam filtered</div><div class="af-val">320</div><div class="af-sub">never reached staff</div></div>
-            </div>
-            <div class="af-col"><div class="af-col-t result">Resulted</div>
-              <div class="af-row"><div class="af-label">After-hours saved</div><div class="af-val">440</div><div class="af-sub">would have been lost</div></div>
-              <div class="af-row"><div class="af-label">Staff time saved</div><div class="af-val">185<span class="u">hrs</span></div><div class="af-sub">across fleet</div></div>
-            </div>
-          </div>
-          <div class="af-fleet-bar">
-            <div class="af-fleet-label">Calls answered by location</div>
-            <div class="af-mini-bars">
-              <div class="af-mini-bar" style="height:28px;background:var(--mg)" data-tip="Scottsdale 210"></div>
-              <div class="af-mini-bar" style="height:26px;background:var(--mg)" data-tip="Tampa 195"></div>
-              <div class="af-mini-bar" style="height:25px;background:var(--mg)" data-tip="Charlotte 188"></div>
-              <div class="af-mini-bar" style="height:27px;background:var(--mg)" data-tip="Austin 204"></div>
-              <div class="af-mini-bar" style="height:24px;background:var(--mg)" data-tip="Denver 176"></div>
-              <div class="af-mini-bar" style="height:24px;background:var(--mg)" data-tip="Nashville 182"></div>
-              <div class="af-mini-bar" style="height:22px;background:var(--mg)" data-tip="Columbus 168"></div>
-              <div class="af-mini-bar" style="height:19px;background:var(--mg)" data-tip="Pittsburgh 142"></div>
-              <div class="af-mini-bar" style="height:17px;background:var(--mg)" data-tip="Raleigh 128"></div>
-              <div class="af-mini-bar" style="height:13px;background:var(--mg)" data-tip="Portland 96"></div>
-            </div>
-          </div>
-        </div>
-
-        <div class="af-card loyalty">
-          <div class="af-h"><div class="af-title"><span class="af-dot" style="background:var(--vi)"></span> Loyalty</div><span class="af-link">Fleet view &#8594;</span></div>
-          <div class="af-split">
-            <div class="af-col"><div class="af-col-t effort">Zoca did (all 10)</div>
-              <div class="af-row"><div class="af-label">Campaign calls made</div><div class="af-val">4,200</div><div class="af-sub">to existing customers</div></div>
-              <div class="af-row"><div class="af-label">Customers reached</div><div class="af-val">3,150</div><div class="af-sub">75% answer rate</div></div>
-            </div>
-            <div class="af-col"><div class="af-col-t result">Resulted</div>
-              <div class="af-row"><div class="af-label">Repeat bookings</div><div class="af-val">1,120</div><div class="af-sub">+33% vs pre-Zoca</div></div>
-              <div class="af-row"><div class="af-label">Lapsed re-engaged</div><div class="af-val">180</div><div class="af-sub">hadn't visited in 60+ days</div></div>
-            </div>
-          </div>
-          <div class="af-fleet-bar">
-            <div class="af-fleet-label">Repeat bookings by location</div>
-            <div class="af-mini-bars">
-              <div class="af-mini-bar" style="height:28px;background:var(--vi)" data-tip="Scottsdale 138"></div>
-              <div class="af-mini-bar" style="height:26px;background:var(--vi)" data-tip="Tampa 129"></div>
-              <div class="af-mini-bar" style="height:24px;background:var(--vi)" data-tip="Charlotte 121"></div>
-              <div class="af-mini-bar" style="height:22px;background:var(--vi)" data-tip="Austin 115"></div>
-              <div class="af-mini-bar" style="height:23px;background:var(--vi)" data-tip="Denver 118"></div>
-              <div class="af-mini-bar" style="height:25px;background:var(--vi)" data-tip="Nashville 124"></div>
-              <div class="af-mini-bar" style="height:20px;background:var(--vi)" data-tip="Columbus 108"></div>
-              <div class="af-mini-bar" style="height:14px;background:var(--amber)" data-tip="Pittsburgh 82"></div>
-              <div class="af-mini-bar" style="height:12px;background:var(--amber)" data-tip="Raleigh 74"></div>
-              <div class="af-mini-bar" style="height:6px;background:var(--red)" data-tip="Portland 31"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- WHAT ZOCA DID THIS WEEK -->
-      <div class="c">
-        <div class="pr-h"><div class="pr-t">What Zoca did across the fleet this week</div><span class="pr-lk">View all &#8594;</span></div>
-        <div class="pi"><div class="pi-i disc">&#128221;</div><span class="pi-agg">10 locations</span><div class="pi-t">Published 120 blogs and 60 GBP posts across all pilot locations</div><div class="pi-tm">This week</div></div>
-        <div class="pi"><div class="pi-i voice">&#128222;</div><span class="pi-agg">10 locations</span><div class="pi-t">Answered 1,860 calls with 100% coverage — 0 missed fleet-wide</div><div class="pi-tm">This week</div></div>
-        <div class="pi"><div class="pi-i loyalty">&#128140;</div><span class="pi-agg">10 locations</span><div class="pi-t">Made 4,200 loyalty campaign calls, generated 1,120 repeat bookings</div><div class="pi-tm">This week</div></div>
-        <div class="pi"><div class="pi-i disc">&#11088;</div><span class="pi-agg">10 locations</span><div class="pi-t">Responded to 86 Google reviews in Deka Lash brand voice</div><div class="pi-tm">This week</div></div>
-        <div class="pi"><div class="pi-i voice">&#128683;</div><span class="pi-agg">10 locations</span><div class="pi-t">Filtered 320 spam/vendor calls before they reached studio staff</div><div class="pi-tm">This week</div></div>
-        <div class="pi"><div class="pi-i disc">&#128200;</div><span class="pi-agg">8 locations</span><div class="pi-t">New keywords entered page 1 for "lash extensions" + city name</div><div class="pi-tm">This week</div></div>
-      </div>
-
-    </div>
+  <div class="ss">
+    <div class="ss-t">Fleet Views</div>
+    <div class="si" onclick="go('fleet-disc')"><span class="d" style="background:var(--or)"></span> Discovery</div>
+    <div class="si" onclick="go('fleet-voice')"><span class="d" style="background:var(--mg)"></span> Voice AI</div>
+    <div class="si" onclick="go('fleet-loyalty')"><span class="d" style="background:var(--vi)"></span> Loyalty</div>
+  </div>
+  <div class="ss"><div class="ss-t">Pilot Locations (10)</div></div>
+  <div id="loc-nav"></div>
+  <div class="ss" style="margin-top:10px">
+    <div class="ss-t">Settings</div>
+    <div class="si"><span class="ic">&#9881;</span> Brand & Brain</div>
+    <div class="si"><span class="ic">&#128101;</span> Team Access</div>
   </div>
 </div>
+<div class="main">
+<div class="top"><h2>Deka Lash &mdash; HQ</h2><div class="top-r"><span class="badge">PILOT &middot; 10 of 130</span><div class="cmd">&#10024; Command Center</div></div></div>
+<div class="cnt">
+
+<!-- L1 PORTFOLIO -->
+<div class="view act" id="v-portfolio">
+  <div class="greet">Good morning, Jennifer</div>
+  <div class="greet-s">Pilot Week 6 of 8 &middot; Updated 2 min ago</div>
+  <div class="sc">
+    <div class="sc-top"><div class="sc-top-l">Pilot scorecard</div><div class="sc-top-r">Before Zoca vs now (6 weeks)</div></div>
+    <div class="sc-row">
+      <div class="sc-item"><div class="sc-lab">Google visibility</div><div class="sc-old">4,200/mo</div><div class="sc-new">6,840</div><div class="sc-ch">+63%</div></div>
+      <div class="sc-item"><div class="sc-lab">Call answer rate</div><div class="sc-old">72%</div><div class="sc-new">100%</div><div class="sc-ch">0 missed</div></div>
+      <div class="sc-item"><div class="sc-lab">Repeat bookings</div><div class="sc-old">840/mo</div><div class="sc-new">1,120</div><div class="sc-ch">+33%</div></div>
+      <div class="sc-item"><div class="sc-lab">Avg Google rating</div><div class="sc-old">4.2</div><div class="sc-new">4.6</div><div class="sc-ch">+0.4</div></div>
+    </div>
+    <div class="sc-proj"><div class="sc-proj-lab">Projected at 130 locations</div><div class="sc-proj-val">+34,320 repeat bookings/year &middot; 100% call coverage</div><div class="sc-proj-sub">Based on pilot averages</div></div>
+  </div>
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px"><div style="font-size:13px;font-weight:600">Location health</div><div style="font-size:9px;color:var(--bk5)"><span style="color:var(--gn)">&#9679;</span> On track (7) &nbsp;<span style="color:var(--am)">&#9679;</span> Attention (2) &nbsp;<span style="color:var(--rd)">&#9679;</span> Action (1)</div></div>
+  <div class="fleet" id="fleet-grid"></div>
+  <div class="c att">
+    <div class="att-h"><h3>Needs HQ attention</h3><span class="att-n">4</span></div>
+    <div class="ai"><span class="ai-sev" style="background:var(--rd)"></span><span class="ai-loc">Portland</span><span class="ai-t">Rating dropped to 3.8 — 3 negative reviews. Responses drafted.</span><span class="ai-tm">Today</span></div>
+    <div class="ai"><span class="ai-sev" style="background:var(--am)"></span><span class="ai-loc">Pittsburgh</span><span class="ai-t">Phone forwarding issue — 6 calls missed Tuesday.</span><span class="ai-tm">2 days ago</span></div>
+    <div class="ai"><span class="ai-sev" style="background:var(--am)"></span><span class="ai-loc">Raleigh</span><span class="ai-t">Loyalty engagement 40% below fleet average.</span><span class="ai-tm">This week</span></div>
+    <div class="ai"><span class="ai-sev" style="background:var(--or)"></span><span class="ai-loc">Fleet</span><span class="ai-t">5 blog posts flagged — off-brand language at 2 locations.</span><span class="ai-tm">Yesterday</span></div>
+  </div>
+  <div class="ag" id="agent-grid"></div>
+  <div class="c"><div class="pr-h"><div class="pr-t">What Zoca did this week</div><span class="pr-lk">View all &#8594;</span></div>
+    <div class="pi"><div class="pi-i disc">&#128221;</div><span class="pi-agg">10 loc</span><div class="pi-t">Published 120 blogs and 60 GBP posts</div><div class="pi-tm">This week</div></div>
+    <div class="pi"><div class="pi-i voice">&#128222;</div><span class="pi-agg">10 loc</span><div class="pi-t">Answered 1,860 calls — 0 missed fleet-wide</div><div class="pi-tm">This week</div></div>
+    <div class="pi"><div class="pi-i loyalty">&#128140;</div><span class="pi-agg">10 loc</span><div class="pi-t">4,200 loyalty calls, 1,120 repeat bookings</div><div class="pi-tm">This week</div></div>
+    <div class="pi"><div class="pi-i disc">&#11088;</div><span class="pi-agg">10 loc</span><div class="pi-t">Responded to 86 reviews in brand voice</div><div class="pi-tm">This week</div></div>
+  </div>
+</div>
+
+<!-- L2 LOCATION -->
+<div class="view" id="v-location">
+  <div class="bread"><a onclick="go('portfolio')">Portfolio</a><span>&#8250;</span><span id="loc-bn"></span></div>
+  <div class="l2-header"><div class="l2-name" id="loc-tt"></div><div class="l2-badge g" id="loc-bg"></div></div>
+  <div class="c"><div class="ct">This location this month</div><div class="ff" id="loc-fn"></div></div>
+  <div class="c att" id="loc-att" style="display:none"></div>
+  <div id="loc-ag" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:14px"></div>
+  <div class="c" id="loc-pr"></div>
+</div>
+
+<!-- L2 FLEET DISCOVERY -->
+<div class="view" id="v-fleet-disc">
+  <div class="bread"><a onclick="go('portfolio')">Portfolio</a><span>&#8250;</span><span>Discovery — All Locations</span></div>
+  <div style="font-size:18px;font-weight:700;margin-bottom:4px">Discovery across the fleet</div>
+  <div style="font-size:11px;color:var(--bk5);margin-bottom:18px">Visibility, content, and search performance by location</div>
+  <div class="c"><table class="fleet-table"><tr><th>Location</th><th>Visibility</th><th>Found you</th><th>Enquiries</th><th>Content</th><th>Keywords up</th><th>Rating</th></tr><tr><td class="loc-name"><span class="ld g"></span>Scottsdale</td><td class="trend g">+72%</td><td class="val">1,820</td><td class="val">152</td><td>120</td><td>22/86</td><td>4.8</td></tr><tr><td class="loc-name"><span class="ld g"></span>Tampa</td><td class="trend g">+68%</td><td class="val">1,710</td><td class="val">145</td><td>120</td><td>20/86</td><td>4.7</td></tr><tr><td class="loc-name"><span class="ld g"></span>Charlotte</td><td class="trend g">+65%</td><td class="val">1,640</td><td class="val">138</td><td>120</td><td>19/86</td><td>4.6</td></tr><tr><td class="loc-name"><span class="ld g"></span>Austin</td><td class="trend g">+71%</td><td class="val">1,780</td><td class="val">148</td><td>120</td><td>21/86</td><td>4.7</td></tr><tr><td class="loc-name"><span class="ld g"></span>Denver</td><td class="trend g">+58%</td><td class="val">1,520</td><td class="val">126</td><td>120</td><td>17/86</td><td>4.5</td></tr><tr><td class="loc-name"><span class="ld g"></span>Nashville</td><td class="trend g">+61%</td><td class="val">1,560</td><td class="val">131</td><td>120</td><td>18/86</td><td>4.6</td></tr><tr><td class="loc-name"><span class="ld g"></span>Columbus</td><td class="trend g">+55%</td><td class="val">1,480</td><td class="val">122</td><td>120</td><td>16/86</td><td>4.5</td></tr><tr><td class="loc-name"><span class="ld a"></span>Pittsburgh</td><td class="trend a">+22%</td><td class="val">1,080</td><td class="val">88</td><td>120</td><td>11/86</td><td>4.3</td></tr><tr><td class="loc-name"><span class="ld a"></span>Raleigh</td><td class="trend a">+18%</td><td class="val">980</td><td class="val">76</td><td>120</td><td>9/86</td><td>4.2</td></tr><tr><td class="loc-name"><span class="ld r"></span>Portland</td><td class="trend r">+8%</td><td class="val">720</td><td class="val">54</td><td>120</td><td>5/86</td><td class="trend r">3.8</td></tr><tr class="avg-row"><td>Fleet average</td><td class="trend g">+52%</td><td class="val">1,429</td><td class="val">118</td><td>120</td><td>16/86</td><td>4.5</td></tr></table></div>
+  <div class="note disc"><strong>Zoca published identical content (120 pieces) at every location.</strong>Visibility differences reflect local competition density and GBP baseline. Underperformers started with weaker profiles — convergence expected by month 3.</div>
+</div>
+
+<!-- L2 FLEET VOICE -->
+<div class="view" id="v-fleet-voice">
+  <div class="bread"><a onclick="go('portfolio')">Portfolio</a><span>&#8250;</span><span>Voice AI — All Locations</span></div>
+  <div style="font-size:18px;font-weight:700;margin-bottom:4px">Voice AI across the fleet</div>
+  <div style="font-size:11px;color:var(--bk5);margin-bottom:18px">Call handling, coverage, and value by location</div>
+  <div class="c"><table class="fleet-table"><tr><th>Location</th><th>Answered</th><th>Coverage</th><th>After-hours</th><th>Spam filtered</th><th>Callbacks</th><th>Time saved</th></tr><tr><td class="loc-name"><span class="ld g"></span>Scottsdale</td><td class="val">210</td><td class="trend g">100%</td><td class="val">52</td><td>38</td><td>8</td><td>21h</td></tr><tr><td class="loc-name"><span class="ld g"></span>Tampa</td><td class="val">195</td><td class="trend g">100%</td><td class="val">48</td><td>35</td><td>6</td><td>19h</td></tr><tr><td class="loc-name"><span class="ld g"></span>Charlotte</td><td class="val">188</td><td class="trend g">100%</td><td class="val">46</td><td>33</td><td>7</td><td>18h</td></tr><tr><td class="loc-name"><span class="ld g"></span>Austin</td><td class="val">204</td><td class="trend g">100%</td><td class="val">50</td><td>36</td><td>5</td><td>20h</td></tr><tr><td class="loc-name"><span class="ld g"></span>Denver</td><td class="val">176</td><td class="trend g">100%</td><td class="val">42</td><td>30</td><td>6</td><td>17h</td></tr><tr><td class="loc-name"><span class="ld g"></span>Nashville</td><td class="val">182</td><td class="trend g">100%</td><td class="val">44</td><td>31</td><td>5</td><td>18h</td></tr><tr><td class="loc-name"><span class="ld g"></span>Columbus</td><td class="val">168</td><td class="trend g">100%</td><td class="val">40</td><td>28</td><td>7</td><td>16h</td></tr><tr><td class="loc-name"><span class="ld a"></span>Pittsburgh</td><td class="val">142</td><td class="trend a">96%</td><td class="val">34</td><td>24</td><td>4</td><td>14h</td></tr><tr><td class="loc-name"><span class="ld a"></span>Raleigh</td><td class="val">128</td><td class="trend g">100%</td><td class="val">30</td><td>22</td><td>5</td><td>12h</td></tr><tr><td class="loc-name"><span class="ld r"></span>Portland</td><td class="val">96</td><td class="trend g">100%</td><td class="val">22</td><td>18</td><td>3</td><td>9h</td></tr><tr class="avg-row"><td>Fleet total</td><td class="val">1,860</td><td class="trend g">99.7%</td><td class="val">440</td><td>320</td><td>56</td><td>185h</td></tr></table></div>
+  <div class="note voice"><strong>Pittsburgh had a phone forwarding issue Tuesday — 6 calls missed. Now resolved.</strong>All other locations maintained 100% coverage. Excluding the incident: 100% fleet-wide.</div>
+</div>
+
+<!-- L2 FLEET LOYALTY -->
+<div class="view" id="v-fleet-loyalty">
+  <div class="bread"><a onclick="go('portfolio')">Portfolio</a><span>&#8250;</span><span>Loyalty — All Locations</span></div>
+  <div style="font-size:18px;font-weight:700;margin-bottom:4px">Loyalty campaigns across the fleet</div>
+  <div style="font-size:11px;color:var(--bk5);margin-bottom:18px">Outbound voice campaigns driving repeat bookings</div>
+  <div class="c"><table class="fleet-table"><tr><th>Location</th><th>Campaigns</th><th>Reached</th><th>Repeat bookings</th><th>Lapsed re-engaged</th><th>Change</th></tr><tr><td class="loc-name"><span class="ld g"></span>Scottsdale</td><td class="val">480</td><td>365</td><td class="val">138</td><td>22</td><td class="trend g">+38%</td></tr><tr><td class="loc-name"><span class="ld g"></span>Tampa</td><td class="val">460</td><td>348</td><td class="val">129</td><td>21</td><td class="trend g">+41%</td></tr><tr><td class="loc-name"><span class="ld g"></span>Charlotte</td><td class="val">440</td><td>330</td><td class="val">121</td><td>19</td><td class="trend g">+35%</td></tr><tr><td class="loc-name"><span class="ld g"></span>Austin</td><td class="val">450</td><td>340</td><td class="val">115</td><td>18</td><td class="trend g">+29%</td></tr><tr><td class="loc-name"><span class="ld g"></span>Denver</td><td class="val">420</td><td>315</td><td class="val">118</td><td>20</td><td class="trend g">+31%</td></tr><tr><td class="loc-name"><span class="ld g"></span>Nashville</td><td class="val">430</td><td>325</td><td class="val">124</td><td>19</td><td class="trend g">+36%</td></tr><tr><td class="loc-name"><span class="ld g"></span>Columbus</td><td class="val">400</td><td>300</td><td class="val">108</td><td>16</td><td class="trend g">+27%</td></tr><tr><td class="loc-name"><span class="ld a"></span>Pittsburgh</td><td class="val">380</td><td>280</td><td class="val">82</td><td>12</td><td class="trend a">+12%</td></tr><tr><td class="loc-name"><span class="ld a"></span>Raleigh</td><td class="val">360</td><td>265</td><td class="val">74</td><td>10</td><td class="trend a">+15%</td></tr><tr><td class="loc-name"><span class="ld r"></span>Portland</td><td class="val">280</td><td>195</td><td class="val">31</td><td>4</td><td class="trend r">+5%</td></tr><tr class="avg-row"><td>Fleet total</td><td class="val">4,200</td><td>3,150</td><td class="val">1,120</td><td>180</td><td class="trend g">+33%</td></tr></table></div>
+  <div class="note loyalty"><strong>Portland has 40% fewer contactable customer records than fleet average.</strong>Recommendation: refresh customer contact data with location manager. Raleigh has a similar but less severe issue.</div>
+</div>
+
+</div></div></div>
+
+<script>
+const L=[
+  {n:"Scottsdale, AZ",id:"#104",s:"g",vis:"+72%",c:210,rp:"+38%",rt:4.8,f:1820,e:152,ah:52,sp:38,cb:8,ts:"21h",cm:480,rc:365,rb:138,lp:22},
+  {n:"Tampa, FL",id:"#089",s:"g",vis:"+68%",c:195,rp:"+41%",rt:4.7,f:1710,e:145,ah:48,sp:35,cb:6,ts:"19h",cm:460,rc:348,rb:129,lp:21},
+  {n:"Charlotte, NC",id:"#112",s:"g",vis:"+65%",c:188,rp:"+35%",rt:4.6,f:1640,e:138,ah:46,sp:33,cb:7,ts:"18h",cm:440,rc:330,rb:121,lp:19},
+  {n:"Austin, TX",id:"#076",s:"g",vis:"+71%",c:204,rp:"+29%",rt:4.7,f:1780,e:148,ah:50,sp:36,cb:5,ts:"20h",cm:450,rc:340,rb:115,lp:18},
+  {n:"Denver, CO",id:"#091",s:"g",vis:"+58%",c:176,rp:"+31%",rt:4.5,f:1520,e:126,ah:42,sp:30,cb:6,ts:"17h",cm:420,rc:315,rb:118,lp:20},
+  {n:"Nashville, TN",id:"#118",s:"g",vis:"+61%",c:182,rp:"+36%",rt:4.6,f:1560,e:131,ah:44,sp:31,cb:5,ts:"18h",cm:430,rc:325,rb:124,lp:19},
+  {n:"Columbus, OH",id:"#095",s:"g",vis:"+55%",c:168,rp:"+27%",rt:4.5,f:1480,e:122,ah:40,sp:28,cb:7,ts:"16h",cm:400,rc:300,rb:108,lp:16},
+  {n:"Pittsburgh, PA",id:"#067",s:"a",vis:"+22%",c:142,rp:"+12%",rt:4.3,f:1080,e:88,ah:34,sp:24,cb:4,ts:"14h",cm:380,rc:280,rb:82,lp:12},
+  {n:"Raleigh, NC",id:"#121",s:"a",vis:"+18%",c:128,rp:"+15%",rt:4.2,f:980,e:76,ah:30,sp:22,cb:5,ts:"12h",cm:360,rc:265,rb:74,lp:10},
+  {n:"Portland, OR",id:"#083",s:"r",vis:"+8%",c:96,rp:"+5%",rt:3.8,f:720,e:54,ah:22,sp:18,cb:3,ts:"9h",cm:280,rc:195,rb:31,lp:4}
+];
+const fg=document.getElementById('fleet-grid'),ln=document.getElementById('loc-nav');
+L.forEach((l,i)=>{
+  fg.innerHTML+=`<div class="fc ${l.s}" onclick="loc(${i})"><div class="fc-dot ${l.s}"></div><div class="fc-name">${l.n}</div><div class="fc-city">Studio ${l.id}</div><div class="fc-row"><div class="fc-k">Visibility</div><div class="fc-v ${l.s}">${l.vis}</div></div><div class="fc-row"><div class="fc-k">Calls</div><div class="fc-v">${l.c}</div></div><div class="fc-row"><div class="fc-k">Repeat</div><div class="fc-v ${l.s}">${l.rp}</div></div><div class="fc-row"><div class="fc-k">Rating</div><div class="fc-v${l.rt<4?' r':''}">${l.rt}</div></div></div>`;
+  ln.innerHTML+=`<div class="loc-item" onclick="loc(${i})"><span class="ld ${l.s}"></span> ${l.n}</div>`;
+});
+const ag=document.getElementById('agent-grid');
+ag.innerHTML=`<div class="ag-card disc" onclick="go('fleet-disc')"><div class="ag-h"><div class="ag-tt"><span class="ag-dot" style="background:var(--or)"></span>Discovery</div><span class="ag-lk">Fleet view &#8594;</span></div><div class="ag-stats"><div><div class="ag-s-lab">Content</div><div class="ag-s-val">1,200</div></div><div><div class="ag-s-lab">Found you</div><div class="ag-s-val">14,800</div><div class="ag-s-sub">+63%</div></div><div><div class="ag-s-lab">Enquiries</div><div class="ag-s-val">1,280</div><div class="ag-s-sub">+28%</div></div><div><div class="ag-s-lab">Keywords</div><div class="ag-s-val">158</div><div class="ag-s-sub">improving</div></div></div></div><div class="ag-card voice" onclick="go('fleet-voice')"><div class="ag-h"><div class="ag-tt"><span class="ag-dot" style="background:var(--mg)"></span>Voice AI</div><span class="ag-lk">Fleet view &#8594;</span></div><div class="ag-stats"><div><div class="ag-s-lab">Answered</div><div class="ag-s-val">1,860</div><div class="ag-s-sub">100%</div></div><div><div class="ag-s-lab">After-hours</div><div class="ag-s-val">440</div></div><div><div class="ag-s-lab">Spam</div><div class="ag-s-val">320</div></div><div><div class="ag-s-lab">Time saved</div><div class="ag-s-val">185h</div></div></div></div><div class="ag-card loyalty" onclick="go('fleet-loyalty')"><div class="ag-h"><div class="ag-tt"><span class="ag-dot" style="background:var(--vi)"></span>Loyalty</div><span class="ag-lk">Fleet view &#8594;</span></div><div class="ag-stats"><div><div class="ag-s-lab">Campaigns</div><div class="ag-s-val">4,200</div></div><div><div class="ag-s-lab">Reached</div><div class="ag-s-val">3,150</div></div><div><div class="ag-s-lab">Repeat</div><div class="ag-s-val">1,120</div><div class="ag-s-sub">+33%</div></div><div><div class="ag-s-lab">Lapsed</div><div class="ag-s-val">180</div></div></div></div>`;
+
+function go(id){
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('act'));
+  document.getElementById('v-'+id).classList.add('act');
+  document.querySelectorAll('.loc-item').forEach(x=>x.classList.remove('act'));
+  window.scrollTo(0,0);
+}
+function loc(i){
+  const l=L[i];
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('act'));
+  document.getElementById('v-location').classList.add('act');
+  document.querySelectorAll('.loc-item').forEach(x=>x.classList.remove('act'));
+  document.querySelectorAll('.loc-item')[i].classList.add('act');
+  document.getElementById('loc-bn').textContent=l.n;
+  document.getElementById('loc-tt').textContent=l.n+' — Studio '+l.id;
+  const bg=document.getElementById('loc-bg');
+  bg.className='l2-badge '+l.s;bg.textContent=l.s==='g'?'On track':l.s==='a'?'Needs attention':'Action needed';
+  document.getElementById('loc-fn').innerHTML=`<div class="fs dg"><div class="l">Found this location</div><div class="v">${l.f.toLocaleString()}</div><div class="s">Google + Web + AI</div><div class="t">${l.vis} vs pre-Zoca</div><div class="ef">120 content pieces</div></div><div class="fa">&#10132;</div><div class="fs vg"><div class="l">Calls answered</div><div class="v">${l.c}</div><div class="s">100% coverage</div><div class="t" style="color:var(--mgd)">0 missed</div><div class="ef">${l.sp} spam filtered</div></div><div class="fa">&#10132;</div><div class="fs vg"><div class="l">Enquiries</div><div class="v">${l.e}</div><div class="s">qualified</div><div class="t">Avg &lt;45s response</div></div><div class="fa">&#10132;</div><div class="fs lg"><div class="l">Repeat bookings</div><div class="v">${l.rb}</div><div class="s">from loyalty campaigns</div><div class="t">${l.rp} vs pre-Zoca</div><div class="ef">${l.cm} campaign calls</div></div>`;
+  const a=document.getElementById('loc-att');
+  if(l.s!=='g'){a.style.display='block';a.innerHTML=`<div class="att-h"><h3>Attention</h3><span class="att-n">!</span></div><div class="ai"><span class="ai-sev" style="background:${l.s==='r'?'var(--rd)':'var(--am)'}"></span><span class="ai-t">${l.s==='r'?'Rating at 3.8 — 3 negative reviews this week. Responses drafted.':'Performance below fleet average. Review Discovery and Loyalty metrics.'}</span></div>`;}else{a.style.display='none';}
+  document.getElementById('loc-ag').innerHTML=`<div class="ag-card disc"><div class="ag-h"><div class="ag-tt"><span class="ag-dot" style="background:var(--or)"></span>Discovery</div></div><div class="ag-stats"><div><div class="ag-s-lab">Content</div><div class="ag-s-val">120</div></div><div><div class="ag-s-lab">Found you</div><div class="ag-s-val">${l.f.toLocaleString()}</div></div><div><div class="ag-s-lab">Enquiries</div><div class="ag-s-val">${l.e}</div></div><div><div class="ag-s-lab">Rating</div><div class="ag-s-val">${l.rt}</div></div></div></div><div class="ag-card voice"><div class="ag-h"><div class="ag-tt"><span class="ag-dot" style="background:var(--mg)"></span>Voice AI</div></div><div class="ag-stats"><div><div class="ag-s-lab">Answered</div><div class="ag-s-val">${l.c}</div></div><div><div class="ag-s-lab">After-hours</div><div class="ag-s-val">${l.ah}</div></div><div><div class="ag-s-lab">Spam</div><div class="ag-s-val">${l.sp}</div></div><div><div class="ag-s-lab">Time</div><div class="ag-s-val">${l.ts}</div></div></div></div><div class="ag-card loyalty"><div class="ag-h"><div class="ag-tt"><span class="ag-dot" style="background:var(--vi)"></span>Loyalty</div></div><div class="ag-stats"><div><div class="ag-s-lab">Campaigns</div><div class="ag-s-val">${l.cm}</div></div><div><div class="ag-s-lab">Reached</div><div class="ag-s-val">${l.rc}</div></div><div><div class="ag-s-lab">Repeat</div><div class="ag-s-val">${l.rb}</div></div><div><div class="ag-s-lab">Lapsed</div><div class="ag-s-val">${l.lp}</div></div></div></div>`;
+  document.getElementById('loc-pr').innerHTML=`<div class="pr-h"><div class="pr-t">Zoca at this location</div></div><div class="pi"><div class="pi-i disc">&#128221;</div><div class="pi-t">Published 12 blogs and 6 GBP posts</div><div class="pi-tm">This week</div></div><div class="pi"><div class="pi-i voice">&#128222;</div><div class="pi-t">Answered ${l.c} calls — ${l.ah} after hours</div><div class="pi-tm">This month</div></div><div class="pi"><div class="pi-i loyalty">&#128140;</div><div class="pi-t">${l.cm} loyalty calls, ${l.rb} repeat bookings</div><div class="pi-tm">This month</div></div><div class="pi"><div class="pi-i disc">&#11088;</div><div class="pi-t">Responded to ${Math.floor(l.c/25)} reviews in brand voice</div><div class="pi-tm">This week</div></div>`;
+  window.scrollTo(0,0);
+}
+</script>
 </body>
 </html>
